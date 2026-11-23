@@ -50,8 +50,8 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `S`    | `a ^ b`          | TODO       |   | `:A`   | `int(log(a,10))`        | TODO       |
 | `J`    | `a ** 2`         | TODO       |   | `:b`   | Is `b <= a < c`?        | TODO       |
 | `N`    | `-a`             | TODO       |   | `:c`   | `min(max(a, b), c)`     | TODO       |
-|        |                  |            |   | `:C`   | `a`th Catalan number    | TODO       |
-|        |                  |            |   | `:g`   | `a & -a`                | TODO       |
+| `t`    | `min(a, b)`      | TODO       |   | `:C`   | `a`th Catalan number    | TODO       |
+| `T`    | `max(a, b)`      | TODO       |   | `:g`   | `a & -a`                | TODO       |
 |        |                  |            |   | `:G`   | `2**int(log(a,2))`      | TODO       |
 |        |                  |            |   | `:J`   | `a b -> a**2 b**2`      | TODO       |
 |        |                  |            |   | `:m`   | `ceil(a / b) * b`       | TODO       |
