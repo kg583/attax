@@ -44,15 +44,15 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `^`    | `a + 1`          | TODO       |   | `:[`   | `a & ~(1 << b)`         | TODO       |
 | `v`    | `a - 1`          | TODO       |   | `:]`   | `a \| (1 << b)`         | TODO       |
 | `h`    | `a // 2`         | TODO       |   | `:/`   | `v_b(a)`                | TODO       |
-| `H`    | `a * 2`          | TODO       |   | `:+`   | `sgn(a)`                | TODO       |
+| `H`    | `a * 2`          | TODO       |   | `:+`   | `sign(a)`               | TODO       |
 | `I`    | `a & b`          | TODO       |   | `:1`   | `bit_count(a)`          | TODO       |
-| `M`    | `a \| b`         | TODO       |   | `:2`   | `int(log(a,2))`         | TODO       |
-| `S`    | `a ^ b`          | TODO       |   | `:A`   | `int(log(a,10))`        | TODO       |
+| `M`    | `a \| b`         | TODO       |   | `:2`   | `int(log(a, 2))`        | TODO       |
+| `S`    | `a ^ b`          | TODO       |   | `:A`   | `int(log(a, 10))`       | TODO       |
 | `J`    | `a ** 2`         | TODO       |   | `:b`   | Is `b <= a < c`?        | TODO       |
 | `N`    | `-a`             | TODO       |   | `:c`   | `min(max(a, b), c)`     | TODO       |
 | `t`    | `min(a, b)`      | TODO       |   | `:C`   | `a`th Catalan number    | TODO       |
 | `T`    | `max(a, b)`      | TODO       |   | `:g`   | `a & -a`                | TODO       |
-|        |                  |            |   | `:G`   | `2**int(log(a,2))`      | TODO       |
+|        |                  |            |   | `:G`   | `2**int(log(a, 2))`     | TODO       |
 |        |                  |            |   | `:J`   | `a b -> a**2 b**2`      | TODO       |
 |        |                  |            |   | `:m`   | `ceil(a / b) * b`       | TODO       |
 |        |                  |            |   | `:N`   | Does `a == k ** b`?     | TODO       |
