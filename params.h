@@ -18,11 +18,11 @@ static_assert(MAX_LITERAL <= INT64_MAX,
 
 
 static const int64_t inputs[] = {
-    0,1,2
+    0,1,1300
 };
 
 static const int64_t targets[] = {
-    1,2,3
+    2,3,10663
 };
 
 static_assert(sizeof targets / sizeof targets[0] == NUM_INPUTS,
@@ -35,7 +35,8 @@ static const uint64_t OPS[] = {
     // '/',
     '^',
     'v',
-    'c'
+    'c',
+    0x7C36
 };
 
 

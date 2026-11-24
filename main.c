@@ -61,14 +61,14 @@ static bool execute(State *state, const Op op) {
     case 0x3A47: return unary(state, high_bit);
     case 0x3A4A: return square_two(state);
     // case 0x3A4E: return binary(state, is_power);
-    // case 0x3A50: return unary(state, next_prime);
+    case 0x3A50: return unary(state, next_prime);
     case 0x3A5B: return binary(state, unset_bit);
     case 0x3A5D: return binary(state, set_bit);
     case 0x3A62: return ternary(state, between);
     case 0x3A63: return ternary(state, clamp);
     case 0x3A67: return unary(state, low_bit);
     case 0x3A6D: return binary(state, next_multiple);
-    // case 0x3A70: return unary(state, last_prime);
+    case 0x3A70: return unary(state, last_prime);
     // case 0x3A74: return unary(state, totient);
     case 0x3A7E: return unary(state, set_interior);
 
@@ -77,7 +77,7 @@ static bool execute(State *state, const Op op) {
     case 0x7C31: return unary(state, parity_sign);
     case 0x7C32: return unary(state, two_power);
     // case 0x7C35: return unary(state, nth_fib);
-    // case 0x7C36: return unary(state, nth_prime);
+    case 0x7C36: return unary(state, nth_prime);
     case 0x7C3C: return binary(state, shift_left);
     case 0x7C3E: return binary(state, shift_right);
     case 0x7C41: return unary(state, ten_power);
@@ -88,7 +88,7 @@ static bool execute(State *state, const Op op) {
     case 0x7C65: return unary(state, is_even);
     case 0x7C67: return binary(state, gcd);
     case 0x7C6C: return binary(state, lcm);
-    // case 0x7C70: return unary(state, is_prime);
+    case 0x7C70: return unary(state, is_prime);
     case 0x7C71: return unary(state, int_sqrt);
 
     default:

@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "ops.h"
+#include "primes.h"
 
 
 int64_t add(const int64_t a, const int64_t b) {
@@ -115,7 +116,20 @@ int64_t two_power(const int64_t a) {
     return pow_floor(2, a);
 }
 
-// TODO: set up precomputation of Fibonacci numbers and primes
+// TODO: set up precomputation of Fibonacci numbers
+
+int64_t nth_prime(int64_t a) {
+    if (a < (int64_t)N_PRIMES_10K) {
+        return PRIMES_10K[a];
+    }
+
+    int64_t val = PRIME_10K;
+    for (; a > (int64_t)N_PRIMES_10K; a--) {
+        val = next_prime(val + 2);
+    }
+
+    return val;
+}
 
 int64_t ten_power(const int64_t a) {
     return pow_floor(10, a);
@@ -142,6 +156,27 @@ int64_t gcd(const int64_t a, const int64_t b) {
 // TODO: calculate from the ground up to prevent overflow
 int64_t lcm(const int64_t a, const int64_t b) {
     return a * b / gcd(a, b);
+}
+
+int64_t is_prime(int64_t a) {
+    if (a < 0) a = -a;
+
+    for (size_t i = 0; i < N_PRIMES_10K; i++) {
+        if (a == PRIMES_10K[i]) {
+            return true;
+        }
+
+        if (a % PRIMES_10K[i] == 0) {
+            return false;
+        }
+    }
+
+    for (uint32_t d = PRIME_10K; d <= a / d; d += 2) {
+        if (a % d == 0) {
+            return false;
+        }
+    }
+    return true;
 }
 
 int64_t int_sqrt(const int64_t a) {
@@ -223,6 +258,17 @@ int64_t high_bit(const int64_t a) {
 
 int64_t next_multiple(const int64_t a, const int64_t b) {
     return ceill((long double) a / b) * b;
+}
+
+int64_t next_prime(int64_t a) {
+    while (!is_prime(a)) a++;
+    return a;
+}
+
+int64_t last_prime(int64_t a) {
+    a--;
+    while (!is_prime(a)) a--;
+    return a;
 }
 
 
