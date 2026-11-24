@@ -6,7 +6,13 @@ If you're not yet familiar with Stax, please play around with it in the online i
 
 ## Building and Running
 
-TODO
+TODO: Explain further
+
+Edit params.h and run with (on linux):
+
+```bash
+make run
+```
 
 
 ## Search Procedure
