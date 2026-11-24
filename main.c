@@ -25,8 +25,11 @@ static void execute(State *state, const Op op) {
     case 0x49: binary(state, bit_and); return;
     case 0x4D: binary(state, bit_or); return;
     case 0x4E: unary(state, negate); return;
+    case 0x4F: tuck(state, 1); return;
     case 0x53: binary(state, bit_xor); return;
     case 0x54: binary(state, max); return;
+    case 0x55: push(state, -1); return;
+    case 0x5A: tuck(state, 0); return;
     case 0x5E: unary(state, inc); return;
     case 0x68: unary(state, halve); return;
     case 0x74: binary(state, min); return;

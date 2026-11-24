@@ -225,6 +225,7 @@ int64_t next_multiple(const int64_t a, const int64_t b) {
 #define STACK state->stack
 #define DEPTH state->depth
 
+
 void alter_stack(State *state) {
     const int64_t t = STACK[DEPTH - 2];
     STACK[DEPTH - 2] = STACK[DEPTH - 1];
@@ -267,6 +268,12 @@ void swap(State *state) {
 
 void push(State *state, const int64_t val) {
     STACK[DEPTH + 1] = val;
+    DEPTH += 1;
+}
+
+void tuck(State *state, const int64_t val) {
+    STACK[DEPTH + 1] = STACK[DEPTH];
+    STACK[DEPTH] = val;
     DEPTH += 1;
 }
 

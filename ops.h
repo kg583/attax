@@ -78,6 +78,7 @@ void under(State *state);
 void swap(State *state);
 
 void push(State *state, int64_t);
+void tuck(State *state, int64_t);
 void unary(State *state, int64_t (*op)(int64_t));
 void binary(State *state, int64_t (*op)(int64_t, int64_t));
 void ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t));
