@@ -38,6 +38,16 @@ inline uint8_t length(const Op op) {
     return count;
 }
 
+inline uint64_t opcode(const char* name) {
+    uint64_t opcode = 0;
+    for (size_t i = 0; i < strlen(name); i++) {
+        opcode <<= 8;
+        opcode += name[i];
+    }
+
+    return opcode;
+}
+
 
 typedef struct Node {
     State states[NUM_INPUTS];

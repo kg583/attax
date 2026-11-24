@@ -162,7 +162,7 @@ int main(void) {
                 Op op;
 
                 if (j < NUM_OPS) {
-                    op.opcode = OPS[j];
+                    op.opcode = opcode(OPS[j]);
                     op.is_number = false;
                 } else {
                     op.opcode = j - NUM_OPS;
