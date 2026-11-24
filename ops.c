@@ -230,72 +230,98 @@ int64_t next_multiple(const int64_t a, const int64_t b) {
 #define DEPTH state->depth
 
 
-void alter_stack(State *state) {
-    const int64_t t = STACK[DEPTH - 2];
-    STACK[DEPTH - 2] = STACK[DEPTH - 1];
-    STACK[DEPTH - 1] = STACK[DEPTH];
-    STACK[DEPTH] = t;
-}
-
-void both_copy(State *state) {
-    STACK[DEPTH + 1] = STACK[DEPTH - 1];
-    STACK[DEPTH + 2] = STACK[DEPTH];
-    DEPTH += 2;
-}
-
-void copy(State *state) {
-    STACK[DEPTH + 1] = STACK[DEPTH];
-    DEPTH += 1;
-}
-
-void discard(State *state) {
-    DEPTH -= 1;
-}
-
-void next(State *state) {
-    STACK[DEPTH + 1] = STACK[DEPTH - 1];
-    DEPTH += 1;
-}
-
-void under(State *state) {
-    STACK[DEPTH + 1] = STACK[DEPTH];
-    STACK[DEPTH] = STACK[DEPTH - 1];
-    DEPTH += 1;
-}
-
-void swap(State *state) {
-    const int64_t t = STACK[DEPTH];
-    STACK[DEPTH] = STACK[DEPTH - 1];
+bool alter_stack(State *state) {
+    if (DEPTH < 3) return false;
+    const int64_t t = STACK[DEPTH - 3];
+    STACK[DEPTH - 3] = STACK[DEPTH - 2];
+    STACK[DEPTH - 2] = STACK[DEPTH];
     STACK[DEPTH - 1] = t;
+    return true;
 }
 
+bool both_copy(State *state) {
+    if (DEPTH < 2) return false;
+    STACK[DEPTH] = STACK[DEPTH - 2];
+    STACK[DEPTH + 1] = STACK[DEPTH - 1];
+    DEPTH += 2;
+    return true;
+}
 
-void push(State *state, const int64_t val) {
-    STACK[DEPTH + 1] = val;
+bool copy(State *state) {
+    if (DEPTH < 1) return false;
+    STACK[DEPTH] = STACK[DEPTH - 1];
     DEPTH += 1;
+    return true;
 }
 
-void tuck(State *state, const int64_t val) {
-    STACK[DEPTH + 1] = STACK[DEPTH];
+bool discard(State *state) {
+    if (DEPTH < 1) return false;
+    DEPTH -= 1;
+    return true;
+}
+
+bool next(State *state) {
+    if (DEPTH < 2) return false;
+    STACK[DEPTH] = STACK[DEPTH - 2];
+    DEPTH += 1;
+    return true;
+}
+
+bool under(State *state) {
+    if (DEPTH < 2) return false;
+    STACK[DEPTH] = STACK[DEPTH - 1];
+    STACK[DEPTH - 1] = STACK[DEPTH - 2];
+    DEPTH += 1;
+    return true;
+}
+
+bool swap(State *state) {
+    if (DEPTH < 2) return false;
+    const int64_t t = STACK[DEPTH - 1];
+    STACK[DEPTH - 1] = STACK[DEPTH - 2];
+    STACK[DEPTH - 2] = t;
+    return true;
+}
+
+bool push(State *state, const int64_t val) {
     STACK[DEPTH] = val;
     DEPTH += 1;
+    return true;
 }
 
-void unary(State *state, int64_t (*op)(int64_t)) {
-    STACK[DEPTH] = op(STACK[DEPTH]);
+bool tuck(State *state, const int64_t val) {
+    if (DEPTH < 1) return false;
+    STACK[DEPTH] = STACK[DEPTH - 1];
+    STACK[DEPTH - 1] = val;
+    DEPTH += 1;
+    return true;
 }
 
-void binary(State *state, int64_t (*op)(int64_t, int64_t)) {
-    STACK[DEPTH - 1] = op(STACK[DEPTH], STACK[DEPTH - 1]);
+bool unary(State *state, int64_t (*op)(int64_t)) {
+    if (DEPTH < 1) return false;
+
+    STACK[DEPTH - 1] = op(STACK[DEPTH - 1]);
+    return true;
+}
+
+bool binary(State *state, int64_t (*op)(int64_t, int64_t)) {
+    if (DEPTH < 2) return false;
+
+    STACK[DEPTH - 2] = op(STACK[DEPTH - 1], STACK[DEPTH - 2]);
     DEPTH -= 1;
+    return true;
 }
 
-void ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
-    STACK[DEPTH - 2] = op(STACK[DEPTH], STACK[DEPTH - 1], STACK[DEPTH - 2]);
+bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
+    if (DEPTH < 3) return false;
+
+    STACK[DEPTH - 3] = op(STACK[DEPTH - 1], STACK[DEPTH - 2], STACK[DEPTH - 3]);
     DEPTH -= 2;
+    return true;
 }
 
 
+/*
 void divmod(State *state) {
     STACK[DEPTH + 1] = mod(STACK[DEPTH], STACK[DEPTH - 1]);
     STACK[DEPTH + 2] = div_floor(STACK[DEPTH], STACK[DEPTH - 1]);
@@ -306,6 +332,7 @@ void square_two(State *state) {
     STACK[DEPTH] = square(STACK[DEPTH]);
     STACK[DEPTH - 1] = square(STACK[DEPTH - 1]);
 }
+*/
 
 #undef STACK
 #undef DEPTH

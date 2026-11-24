@@ -70,22 +70,22 @@ int64_t next_prime(int64_t a);
 int64_t totient(int64_t a);
 
 
-void alter_stack(State *state);
-void both_copy(State *state);
-void copy(State *state);
-void discard(State *state);
-void next(State *state);
-void under(State *state);
-void swap(State *state);
+bool alter_stack(State *state);
+bool both_copy(State *state);
+bool copy(State *state);
+bool discard(State *state);
+bool next(State *state);
+bool under(State *state);
+bool swap(State *state);
 
-void push(State *state, int64_t);
-void tuck(State *state, int64_t);
-void unary(State *state, int64_t (*op)(int64_t));
-void binary(State *state, int64_t (*op)(int64_t, int64_t));
-void ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t));
+bool push(State *state, int64_t);
+bool tuck(State *state, int64_t);
+bool unary(State *state, int64_t (*op)(int64_t));
+bool binary(State *state, int64_t (*op)(int64_t, int64_t));
+bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t));
 
-void divmod(State *state);
-void square_two(State *state);
+// void divmod(State *state);
+// void square_two(State *state);
 
 
 #endif

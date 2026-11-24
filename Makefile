@@ -10,6 +10,11 @@ $(TARGET): main.c ops.c params.h state.h
 	$(CC) $(CFLAGS) main.c ops.c -o $(TARGET) -lm
 
 clean:
-	rm $(TARGET)
+	$(RM) $(TARGET)
 
-.PHONY: all clean
+run:
+	$(MAKE) clean
+	$(MAKE) $(TARGET)
+	./$(TARGET)
+
+.PHONY: all clean run
