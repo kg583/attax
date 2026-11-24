@@ -1,76 +1,97 @@
 #include <math.h>
-#include <stdint.h>
 #include <stdlib.h>
-
-// For expanding to floats and such later
-typedef int64_t Num;
+#include "ops.h"
 
 
-Num add(Num a, Num b) {
+int64_t add(const int64_t a, const int64_t b) {
     return a + b;
 }
 
-Num sub(Num a, Num b) {
+int64_t sub(const int64_t a, const int64_t b) {
     return a - b;
 }
 
-Num mul(Num a, Num b) {
+int64_t mul(const int64_t a, const int64_t b) {
     return a * b;
 }
 
-// TODO: C and Stax round division differently
+int64_t div_floor(const int64_t a, const int64_t b) {
+    return (a + (a < 0)) / b - (a < 0);
+}
 
-Num mod(Num a, Num b) {
+int64_t mod(const int64_t a, const int64_t b) {
     return a % b;
 }
 
-// TODO: integer pow
+int64_t pow_floor(const int64_t a, const int64_t b) {
+    return powl(a, b);
+}
 
-Num inc(Num a) {
+int64_t inc(const int64_t a) {
     return a + 1;
 }
 
-Num dec(Num a) {
+int64_t dec(const int64_t a) {
     return a - 1;
 }
 
-Num halve(Num a) {
+int64_t halve(const int64_t a) {
     return a / 2;
 }
 
-Num unhalve(Num a) {
+int64_t unhalve(const int64_t a) {
     return a * 2;
 }
 
-int64_t bit_and(int64_t a, int64_t b) {
+int64_t bit_and(const int64_t a, const int64_t b) {
     return a & b;
 }
 
-int64_t bit_or(int64_t a, int64_t b) {
+int64_t bit_or(const int64_t a, const int64_t b) {
     return a | b;
 }
 
-int64_t bit_xor(int64_t a, int64_t b) {
+int64_t bit_xor(const int64_t a, const int64_t b) {
     return a ^ b;
 }
 
-Num square(Num a) {
+int64_t square(const int64_t a) {
     return a * a;
 }
 
-Num negate(Num a) {
+int64_t negate(const int64_t a) {
     return -a;
 }
 
-int64_t min(int64_t a, int64_t b) {
-    return a < b ? a : b;
+int64_t min(const int64_t a, const int64_t b) {
+    return fminl(a, b);
 }
 
-int64_t max(int64_t a, int64_t b) {
-    return a > b ? a : b;
+int64_t max(const int64_t a, const int64_t b) {
+    return fmaxl(a, b);
 }
 
-int64_t div_all(int64_t a, int64_t b) {
+
+int64_t not(const int64_t a) {
+    return !a;
+}
+
+int64_t less(const int64_t a, const int64_t b) {
+    return a < b;
+}
+
+int64_t greater(const int64_t a, const int64_t b) {
+    return a > b;
+}
+
+int64_t equal(const int64_t a, const int64_t b) {
+    return a == b;
+}
+
+
+int64_t div_all(int64_t a, const int64_t b) {
+    if (b == 1) return a;
+
     while (a % b == 0) {
         a /= b;
     }
@@ -78,56 +99,87 @@ int64_t div_all(int64_t a, int64_t b) {
     return a;
 }
 
-int64_t shift_left(int64_t a, int64_t b) {
-    return b >= 0 ? a << b : a >> -b;
+int64_t shift_left(const int64_t a, const int64_t b) {
+    return b >= 0 ? a * (1 << b) : a / (1 << -b);
 }
 
-int64_t shift_right(int64_t a, int64_t b) {
+int64_t shift_right(const int64_t a, const int64_t b) {
     return shift_left(a, -b);
+}
+
+int64_t parity_sign(const int64_t a) {
+    return a % 2 ? -1 : 1;
+}
+
+int64_t two_power(const int64_t a) {
+    return pow_floor(2, a);
 }
 
 // TODO: set up precomputation of Fibonacci numbers and primes
 
-int64_t parity_sign(int64_t a) {
-    return a % 2 ? -1 : 1;
+int64_t ten_power(const int64_t a) {
+    return pow_floor(10, a);
 }
 
-int64_t is_even(int64_t a) {
+int64_t is_even(const int64_t a) {
     return a % 2 ? 0 : 1;
 }
 
 // TODO: signaling for different errors in factorial
 
 // TODO: support negative inputs
-int64_t gcd(int64_t a, int64_t b) {
+int64_t gcd(const int64_t a, const int64_t b) {
     if (a == 0) return b;
     if (b == 0) return a;
 
     return a >= b ? gcd(b, a % b) : gcd(b % a, a);
 }
 
-int64_t is_coprime(int64_t a, int64_t b) {
+// TODO: calculate from the ground up to prevent overflow
+int64_t lcm(const int64_t a, const int64_t b) {
+    return a * b / gcd(a, b);
+}
+
+int64_t int_sqrt(const int64_t a) {
+    return sqrtl(a);
+}
+
+int64_t set_interior(int64_t a) {
+    for (uint8_t i = 0; i < 64; i++) {
+        a |= 1 << i;
+    }
+    return a;
+}
+
+int64_t coprime(const int64_t a, const int64_t b) {
     return gcd(a, b) == 1 ? 1 : 0;
 }
 
-Num abs_diff(Num a, Num b) {
-    return abs(a - b);
+int64_t abs_diff(const int64_t a, const int64_t b) {
+    return llabs(a - b);
 }
 
-int64_t get_bit(int64_t a, int64_t b) {
+int64_t get_bit(const int64_t a, const int64_t b) {
     return (a >> b) & 1;
 }
 
-int64_t unset_bit(int64_t a, int64_t b) {
+int64_t unset_bit(const int64_t a, const int64_t b) {
     return a & ~(1 << b);
 }
 
-int64_t set_bit(int64_t a, int64_t b) {
+int64_t set_bit(const int64_t a, const int64_t b) {
     return a | (1 << b);
 }
 
-int64_t multiplicity(int64_t a, int64_t b) {
-    int k = 0;
+int64_t toggle_bit(const int64_t a, const int64_t b) {
+    return a ^ (1 << b);
+}
+
+int64_t multiplicity(int64_t a, const int64_t b) {
+    // TODO: actually signal this
+    if (b == 1) return -1;
+
+    uint8_t k = 0;
     while (a % b == 0) {
       a /= b;
       k += 1;
@@ -136,15 +188,107 @@ int64_t multiplicity(int64_t a, int64_t b) {
     return k;
 }
 
-int64_t sign(Num a) {
+int64_t sign(const int64_t a) {
     if (a == 0) return 0;
     return a > 0 ? 1 : -1;
 }
 
-Num clamp(Num a, Num b, Num c) {
-    return min(max(a, b), c);
+int64_t floor_log_2(const int64_t a) {
+    return log2l(a);
 }
 
-int64_t low_bit(int64_t a) {
+int64_t floor_log_10(const int64_t a) {
+    return log10l(a);
+}
+
+int64_t between(const int64_t a, const int64_t b, const int64_t c) {
+    return b <= a && a < c ? 1 : 0;
+}
+
+int64_t clamp(const int64_t a, const int64_t b, const int64_t c) {
+    return fminl(fmaxl(a, b), c);
+}
+
+int64_t low_bit(const int64_t a) {
     return a & -a;
 }
+
+int64_t high_bit(const int64_t a) {
+    return 1 << floor_log_2(a);
+}
+
+int64_t next_multiple(const int64_t a, const int64_t b) {
+    return b * ceill((long double) a / b);
+}
+
+
+#define STACK state->stack
+#define DEPTH state->depth
+
+void alter_stack(State *state) {
+    const int64_t t = STACK[DEPTH - 2];
+    STACK[DEPTH - 2] = STACK[DEPTH - 1];
+    STACK[DEPTH - 1] = STACK[DEPTH];
+    STACK[DEPTH] = t;
+}
+
+void both_copy(State *state) {
+    STACK[DEPTH + 1] = STACK[DEPTH - 1];
+    STACK[DEPTH + 2] = STACK[DEPTH];
+    DEPTH += 2;
+}
+
+void copy(State *state) {
+    STACK[DEPTH + 1] = STACK[DEPTH];
+    DEPTH += 1;
+}
+
+void discard(State *state) {
+    DEPTH -= 1;
+}
+
+void next(State *state) {
+    STACK[DEPTH + 1] = STACK[DEPTH - 1];
+    DEPTH += 1;
+}
+
+void under(State *state) {
+    STACK[DEPTH + 1] = STACK[DEPTH];
+    STACK[DEPTH] = STACK[DEPTH - 1];
+    DEPTH += 1;
+}
+
+void swap(State *state) {
+    const int64_t t = STACK[DEPTH];
+    STACK[DEPTH] = STACK[DEPTH - 1];
+    STACK[DEPTH - 1] = t;
+}
+
+
+void push(State *state, const int64_t val) {
+    STACK[DEPTH + 1] = val;
+    DEPTH += 1;
+}
+
+void unary(State *state, int64_t (*op)(int64_t)) {
+    STACK[DEPTH] = op(STACK[DEPTH]);
+}
+
+void binary(State *state, int64_t (*op)(int64_t, int64_t)) {
+    STACK[DEPTH - 1] = op(STACK[DEPTH], STACK[DEPTH - 1]);
+    DEPTH -= 1;
+}
+
+void ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
+    STACK[DEPTH - 2] = op(STACK[DEPTH], STACK[DEPTH - 1], STACK[DEPTH - 2]);
+    DEPTH -= 2;
+}
+
+
+void square_two(State *state) {
+    STACK[DEPTH] = square(STACK[DEPTH]);
+    STACK[DEPTH - 1] = square(STACK[DEPTH - 1]);
+}
+
+#undef STACK
+#undef DEPTH

@@ -1,8 +1,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "exec.h"
 #include "params.h"
 #include "state.h"
+
 
 int main(void) {
 
@@ -15,10 +17,10 @@ int main(void) {
     }
 
     // Initialise root state
-    root->state.depth = 1;
-    for (size_t i = 0; i < NUM_INPUTS; i++)
-        root->state.stack[0][i] = inputs[i];
-
+    for (size_t i = 0; i < NUM_INPUTS; i++) {
+        root->states[i].depth = 1;
+        root->states[i].stack[0] = inputs[i];
+    }
 
     // Initialise cache
     cache[0].nodes = malloc(sizeof(Node *));
@@ -47,22 +49,15 @@ int main(void) {
                     op.opcode = OPS[j];
                     op.is_number = false;
                 } else {
-                    op.opcode = (int64_t)(j - NUM_OPS);
+                    op.opcode = j - NUM_OPS;
                     op.is_number = true;
                 }
 
-                // TODO: Calaculate length, don't just default to 1
-                int new_length = n + 1;
+                const int new_length = n + length(op);
 
                 // Skip programs exceeding the limit
                 if (new_length > MAX_LENGTH)
                     continue;
-
-                State next = parent->state;
-
-                // TODO: Execute the instruction
-
-                // TODO: Hash and deduplicate the state
 
                 // Allocate the new node
                 Node *child = malloc(sizeof(Node));
@@ -73,16 +68,21 @@ int main(void) {
                 }
 
                 // Initialise the child
-                child->state = next;
+                *child = *parent;
                 child->parent = parent;
-                child->op = op;
+
+                // Execute instruction
+                for (size_t k = 0; k < NUM_INPUTS; k++) {
+                    execute(&child->states[k], op);
+                }
+
+                // TODO: Hash and deduplicate the state
 
                 CacheLevel *level = &cache[new_length];
 
                 // Grow the cache array if necessary
                 if (level->count == level->capacity) {
-                    size_t new_capacity =
-                        level->capacity ? level->capacity * 2 : 16;
+                    const size_t new_capacity = level->capacity ? level->capacity * 2 : 16;
 
                     Node **new_nodes = realloc(
                         level->nodes,
