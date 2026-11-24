@@ -119,6 +119,8 @@ int64_t two_power(const int64_t a) {
 // TODO: set up precomputation of Fibonacci numbers
 
 int64_t nth_prime(int64_t a) {
+    if (a < 0) return -nth_prime(-1 - a);
+
     if (a < (int64_t)N_PRIMES_10K) {
         return PRIMES_10K[a];
     }
@@ -269,6 +271,29 @@ int64_t last_prime(int64_t a) {
     a--;
     while (!is_prime(a)) a--;
     return a;
+}
+
+int64_t totient(int64_t a) {
+    if (a < 0) a = -a;
+
+    int64_t totient = 1;
+    uint8_t i = 0;
+
+    while (a > 1) {
+        const int64_t prime = nth_prime(i);
+        if (a % prime == 0) {
+            totient *= prime - 1;
+            a /= prime;
+
+            while (a % prime == 0) {
+                totient *= prime;
+                a /= prime;
+            }
+        }
+        i++;
+    }
+
+    return totient;
 }
 
 
