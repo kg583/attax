@@ -121,6 +121,10 @@ int64_t ten_power(const int64_t a) {
     return pow_floor(10, a);
 }
 
+int64_t int64_abs(const int64_t a) {
+    return llabs(a);
+}
+
 int64_t is_even(const int64_t a) {
     return a % 2 ? 0 : 1;
 }
