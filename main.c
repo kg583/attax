@@ -9,7 +9,7 @@
 
 static bool execute(State *state, const Op op) {
     if (op.is_number) {
-        push(state, op.opcode);
+        push(state, (int64_t)op.opcode);
         return true;
     }
 

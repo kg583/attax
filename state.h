@@ -22,16 +22,16 @@ inline bool identical(const State *s, const State *t) {
 
 
 typedef struct {
-    int64_t opcode;
+    uint64_t opcode;
     bool is_number;
 } Op;
 
 // TODO: maybe make this faster? Made it generic for now incase we implement macros (E|+)
 inline uint8_t length(const Op op) {
-    const int64_t base = op.is_number ? 10 : 256;
+    const uint64_t base = op.is_number ? 10 : 256;
     uint8_t count = 1;
 
-    for (int64_t value = op.opcode; value >= base; value /= base) {
+    for (uint64_t value = op.opcode; value >= base; value /= base) {
         count++;
     }
 
