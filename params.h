@@ -9,11 +9,11 @@
 #define NUM_OPS (sizeof OPS / sizeof OPS[0])
 
 static const int64_t inputs[] = {
-    0
+    0,1,2
 };
 
 static const int64_t targets[] = {
-    1
+    1,2,3
 };
 
 static_assert(sizeof targets / sizeof targets[0] == NUM_INPUTS,
@@ -23,7 +23,7 @@ static const int64_t OPS[] = {
     '+',
     '-',
     '*',
-    '/',
+    // '/',
     '^',
     'v'
 };

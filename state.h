@@ -27,8 +27,14 @@ typedef struct {
 } Op;
 
 inline uint8_t length(const Op op) {
-    if (op.opcode == 0) return 1;
-    return ceill(op.is_number ? log10l(op.opcode) : log2l(op.opcode) / 8);
+    const int64_t base = op.is_number ? 10 : 256;
+    uint8_t count = 1;
+
+    for (int64_t value = op.opcode; value >= base; value /= base) {
+        count++;
+    }
+
+    return count;
 }
 
 
@@ -37,6 +43,19 @@ typedef struct Node {
     struct Node *parent;
     Op op;
 } Node;
+
+static inline bool matches_targets(const Node *node) {
+    for (size_t k = 0; k < NUM_INPUTS; k++) {
+        const State *state = &node->states[k];
+
+        if (state->depth == 0 ||
+            state->stack[state->depth - 1] != targets[k]) {
+            return false;
+        }
+    }
+
+    return true;
+}
 
 
 typedef struct {
