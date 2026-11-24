@@ -12,11 +12,6 @@ static_assert(MAX_LITERAL <= INT64_MAX,
     "MAX_LITERAL > INT64_MAX, this is not allowed as the calculations use int64_t");
 
 
-#define NUM_INPUTS (sizeof inputs / sizeof inputs[0])
-#define NUM_OPS (sizeof OPS / sizeof OPS[0])
-
-
-
 static constexpr int64_t inputs[] = {
     0,1,1300
 };
@@ -25,6 +20,7 @@ static constexpr int64_t targets[] = {
     2,3,10663
 };
 
+#define NUM_INPUTS (sizeof inputs / sizeof inputs[0])
 static_assert(sizeof targets / sizeof targets[0] == NUM_INPUTS,
               "Input array length doesn't match target array length");
 
@@ -38,6 +34,9 @@ static const char* OPS[] = {
     "c",
     "|6"
 };
+
+#define NUM_OPS (sizeof OPS / sizeof OPS[0])
+static uint64_t OPCODES[NUM_OPS];
 
 
 #endif

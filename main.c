@@ -122,6 +122,10 @@ static void print_source(const Node *node) {
 
 
 int main(void) {
+    // Initialise opcodes
+    for (size_t i = 0; i < NUM_OPS; i++) {
+        OPCODES[i] = opcode(OPS[i]);
+    }
 
     CacheLevel cache[MAX_LENGTH + 1] = {0};
 
@@ -162,7 +166,7 @@ int main(void) {
                 Op op;
 
                 if (j < NUM_OPS) {
-                    op.opcode = opcode(OPS[j]);
+                    op.opcode = OPCODES[j];
                     op.is_number = false;
                 } else {
                     op.opcode = j - NUM_OPS;
