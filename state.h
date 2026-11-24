@@ -26,7 +26,7 @@ typedef struct {
     bool is_number;
 } Op;
 
-inline uint8_t length(Op op) {
+inline uint8_t length(const Op op) {
     if (op.opcode == 0) return 1;
     return ceill(op.is_number ? log10l(op.opcode) : log2l(op.opcode) / 8);
 }

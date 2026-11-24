@@ -218,7 +218,7 @@ int64_t high_bit(const int64_t a) {
 }
 
 int64_t next_multiple(const int64_t a, const int64_t b) {
-    return b * ceill((long double) a / b);
+    return ceill((long double) a / b) * b;
 }
 
 

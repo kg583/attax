@@ -6,7 +6,7 @@ TARGET = attax
 
 all: $(TARGET)
 
-$(TARGET): main.c exec.h ops.c params.h state.h
+$(TARGET): main.c ops.c params.h state.h
 	$(CC) $(CFLAGS) main.c ops.c -o $(TARGET)
 
 clean:
