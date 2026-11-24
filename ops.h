@@ -84,8 +84,8 @@ bool unary(State *state, int64_t (*op)(int64_t));
 bool binary(State *state, int64_t (*op)(int64_t, int64_t));
 bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t));
 
-// void divmod(State *state);
-// void square_two(State *state);
+bool divmod(State *state);
+bool square_two(State *state);
 
 
 #endif

@@ -229,9 +229,9 @@ int64_t next_multiple(const int64_t a, const int64_t b) {
 #define STACK state->stack
 #define DEPTH state->depth
 
-
 bool alter_stack(State *state) {
     if (DEPTH < 3) return false;
+
     const int64_t t = STACK[DEPTH - 3];
     STACK[DEPTH - 3] = STACK[DEPTH - 2];
     STACK[DEPTH - 2] = STACK[DEPTH];
@@ -241,6 +241,7 @@ bool alter_stack(State *state) {
 
 bool both_copy(State *state) {
     if (DEPTH < 2) return false;
+
     STACK[DEPTH] = STACK[DEPTH - 2];
     STACK[DEPTH + 1] = STACK[DEPTH - 1];
     DEPTH += 2;
@@ -249,6 +250,7 @@ bool both_copy(State *state) {
 
 bool copy(State *state) {
     if (DEPTH < 1) return false;
+
     STACK[DEPTH] = STACK[DEPTH - 1];
     DEPTH += 1;
     return true;
@@ -256,12 +258,14 @@ bool copy(State *state) {
 
 bool discard(State *state) {
     if (DEPTH < 1) return false;
+
     DEPTH -= 1;
     return true;
 }
 
 bool next(State *state) {
     if (DEPTH < 2) return false;
+
     STACK[DEPTH] = STACK[DEPTH - 2];
     DEPTH += 1;
     return true;
@@ -269,6 +273,7 @@ bool next(State *state) {
 
 bool under(State *state) {
     if (DEPTH < 2) return false;
+
     STACK[DEPTH] = STACK[DEPTH - 1];
     STACK[DEPTH - 1] = STACK[DEPTH - 2];
     DEPTH += 1;
@@ -277,6 +282,7 @@ bool under(State *state) {
 
 bool swap(State *state) {
     if (DEPTH < 2) return false;
+
     const int64_t t = STACK[DEPTH - 1];
     STACK[DEPTH - 1] = STACK[DEPTH - 2];
     STACK[DEPTH - 2] = t;
@@ -291,6 +297,7 @@ bool push(State *state, const int64_t val) {
 
 bool tuck(State *state, const int64_t val) {
     if (DEPTH < 1) return false;
+
     STACK[DEPTH] = STACK[DEPTH - 1];
     STACK[DEPTH - 1] = val;
     DEPTH += 1;
@@ -321,18 +328,22 @@ bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
 }
 
 
-/*
-void divmod(State *state) {
+bool divmod(State *state) {
+    if (DEPTH < 2) return false;
+
     STACK[DEPTH + 1] = mod(STACK[DEPTH], STACK[DEPTH - 1]);
     STACK[DEPTH + 2] = div_floor(STACK[DEPTH], STACK[DEPTH - 1]);
     DEPTH += 2;
+    return true;
 }
 
-void square_two(State *state) {
+bool square_two(State *state) {
+    if (DEPTH < 2) return false;
+
     STACK[DEPTH] = square(STACK[DEPTH]);
     STACK[DEPTH - 1] = square(STACK[DEPTH - 1]);
+    return true;
 }
-*/
 
 #undef STACK
 #undef DEPTH

@@ -59,7 +59,7 @@ static bool execute(State *state, const Op op) {
     case 0x3A40: return binary(state, get_bit);
     case 0x3A41: return unary(state, floor_log_10);
     case 0x3A47: return unary(state, high_bit);
-    // case 0x3A4A: square_two(state); return;
+    case 0x3A4A: return square_two(state);
     // case 0x3A4E: return binary(state, is_power);
     // case 0x3A50: return unary(state, next_prime);
     case 0x3A5B: return binary(state, unset_bit);
@@ -72,7 +72,7 @@ static bool execute(State *state, const Op op) {
     // case 0x3A74: return unary(state, totient);
     case 0x3A7E: return unary(state, set_interior);
 
-    // case 0x7C25: divmod(state); return;
+    case 0x7C25: return divmod(state);
     case 0x7C2F: return binary(state, div_all);
     case 0x7C31: return unary(state, parity_sign);
     case 0x7C32: return unary(state, two_power);
@@ -108,7 +108,7 @@ static void print_source(const Node *node) {
         const Op op = instructions[--count];
 
         if (op.is_number) {
-            printf("%ld", op.opcode);
+            printf("%lld", op.opcode);
         } else {
             // Print each char one at a time
             for (int shift = 8 * (length(op) - 1); shift >= 0; shift -= 8) {
@@ -152,7 +152,7 @@ int main(void) {
 
     for (int n = 0; n < MAX_LENGTH; n++) {
         CacheLevel *current = &cache[n];
-        printf("Length %d done (%ld expressions)\n", (n), (n) * (current->count));
+        printf("Length %d done (%lld expressions)\n", (n), (n) * (current->count));
 
         for (size_t i = 0; i < current->count; i++) {
             Node *parent = current->nodes[i];
