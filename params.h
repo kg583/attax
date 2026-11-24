@@ -17,18 +17,18 @@ static_assert(MAX_LITERAL <= INT64_MAX,
 
 
 
-static const int64_t inputs[] = {
+static constexpr int64_t inputs[] = {
     0,1,1300
 };
 
-static const int64_t targets[] = {
+static constexpr int64_t targets[] = {
     2,3,10663
 };
 
 static_assert(sizeof targets / sizeof targets[0] == NUM_INPUTS,
               "Input array length doesn't match target array length");
 
-static const uint64_t OPS[] = {
+static constexpr uint64_t OPS[] = {
     '+',
     '-',
     '*',
