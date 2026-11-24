@@ -96,6 +96,30 @@ static bool execute(State *state, const Op op) {
     }
 }
 
+static void print_source(const Node *node) {
+    Op instructions[MAX_LENGTH];
+    size_t count = 0;
+
+    for (; node->parent; node = node->parent) {
+        instructions[count++] = node->op;
+    }
+
+    while (count > 0) {
+        const Op op = instructions[--count];
+
+        if (op.is_number) {
+            printf("%ld", op.opcode);
+        } else {
+            // Print each char one at a time
+            for (int shift = 8 * (length(op) - 1); shift >= 0; shift -= 8) {
+                putchar((op.opcode >> shift) & UINT8_MAX);
+            }
+        }
+    }
+
+    putchar('\n');
+}
+
 
 int main(void) {
 
@@ -202,7 +226,7 @@ int main(void) {
                 level->nodes[level->count++] = child;
 
                 if (matches_targets(child)) {
-                    printf("e\n");
+                    print_source(child);
                 }
             }
         }

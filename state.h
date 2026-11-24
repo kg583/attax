@@ -26,6 +26,7 @@ typedef struct {
     bool is_number;
 } Op;
 
+// TODO: maybe make this faster? Made it generic for now incase we implement macros (E|+)
 inline uint8_t length(const Op op) {
     const int64_t base = op.is_number ? 10 : 256;
     uint8_t count = 1;
