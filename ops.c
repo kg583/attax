@@ -285,6 +285,12 @@ void ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
 }
 
 
+void divmod(State *state) {
+    STACK[DEPTH + 1] = mod(STACK[DEPTH], STACK[DEPTH - 1]);
+    STACK[DEPTH + 2] = div_floor(STACK[DEPTH], STACK[DEPTH - 1]);
+    DEPTH += 2;
+}
+
 void square_two(State *state) {
     STACK[DEPTH] = square(STACK[DEPTH]);
     STACK[DEPTH - 1] = square(STACK[DEPTH - 1]);

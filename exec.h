@@ -66,6 +66,7 @@ inline void execute(State *state, const Op op) {
     // case 0x3A74: unary(state, totient); return;
     case 0x3A7E: unary(state, set_interior); return;
 
+    case 0x7C25: divmod(state); return;
     case 0x7C2F: binary(state, div_all); return;
     case 0x7C31: unary(state, parity_sign); return;
     case 0x7C32: unary(state, two_power); return;
