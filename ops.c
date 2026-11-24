@@ -145,8 +145,8 @@ int64_t int_sqrt(const int64_t a) {
 }
 
 int64_t set_interior(int64_t a) {
-    for (uint8_t i = 0; i < 64; i++) {
-        a |= 1 << i;
+    for (int64_t b = 1; b < a; b *= 2) {
+        a |= b;
     }
     return a;
 }
