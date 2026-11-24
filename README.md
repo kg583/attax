@@ -21,42 +21,42 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 
 | **Op** | **Code**         | **Status** |   | **Op** | **Code**                | **Status** |
 |--------|------------------|------------|---|--------|-------------------------|------------|
-| `1234` | `1234`           | `int`      |   | `\|%`  | `a b -> a // b a % b`   | `int`      |
-| `A`    | `10`             | TODO       |   | `\|/`  | `a // b ** v_b(a)`      | `int`      |
-| `O`    | Tuck `1`         | TODO       |   | `\|<`  | `a << b`                | `int`      |
-| `U`    | `-1`             | TODO       |   | `\|>`  | `a >> b`                | `int`      |
-| `Z`    | Tuck `0`         | TODO       |   | `\|1`  | `(-1) ** a`             | `int`      |
-|        |                  |            |   | `\|2`  | `2 ** a`                | `int`      |
-| `a`    | `a b c -> c a b` | `int`      |   | `\|5`  | `a`th Fibonacci number  | TODO       |
-| `b`    | `a b -> a b a b` | `int`      |   | `\|6`  | `a`th prime             | TODO       |
-| `c`    | `a b -> a a b`   | `int`      |   | `\|a`  | `abs(a)`                | `int`      |
-| `d`    | `a b -> b`       | `int`      |   | `\|C`  | `a nCr b`               | TODO       |
-| `n`    | `a b -> b a b`   | `int`      |   | `\|e`  | `(a + 1) % 2`           | `int`      |
-| `[`    | `a b -> a b b`   | `int`      |   | `\|F`  | `a!`                    | TODO       |
-| `s`    | `a b -> b a`     | `int`      |   | `\|g`  | `gcd(a,b)`              | `int`      |
-|        |                  |            |   | `\|l`  | `lcm(a,b)`              | `int`      |
-| `+`    | `a + b`          | `int`      |   | `\|N`  | `int(a ** (1/b))`       | TODO       |
-| `-`    | `a - b`          | `int`      |   | `\|p`  | Is `a` prime?           | TODO       |
-| `*`    | `a * b`          | `int`      |   | `\|q`  | `int(sqrt(a))`          | `int`      |
-| `/`    | `a // b`         | `int`      |   | `:~`   | `a \| 2**bitlen(a) - 1` | `int`      |
-| `%`    | `a % b`          | `int`      |   | `:!`   | Does `gcd(a,b) == 1`?   | `int`      |
-| `#`    | `a ** b`         | `int`      |   | `:-`   | `abs(a - b)`            | `int`      |
-| `^`    | `a + 1`          | `int`      |   | `:@`   | `(a >> b) & 1`          | `int`      |
-| `v`    | `a - 1`          | `int`      |   | `:[`   | `a & ~(1 << b)`         | `int`      |
-| `h`    | `a // 2`         | `int`      |   | `:]`   | `a \| (1 << b)`         | `int`      |
-| `H`    | `a * 2`          | `int`      |   | `::`   | `a ^ (1 << b)`          | `int`      |
-| `I`    | `a & b`          | `int`      |   | `:/`   | `v_b(a)`                | `int`      |
-| `M`    | `a \| b`         | `int`      |   | `:+`   | `sign(a)`               | `int`      |
-| `S`    | `a ^ b`          | `int`      |   | `:1`   | `bit_count(a)`          | TODO       |
-| `J`    | `a ** 2`         | `int`      |   | `:2`   | `int(log(a,2))`         | `int`      |
-| `N`    | `-a`             | `int`      |   | `:A`   | `int(log(a,10))`        | `int`      |
-| `t`    | `min(a, b)`      | `int`      |   | `:b`   | Is `b <= a < c`?        | `int`      |
-| `T`    | `max(a, b)`      | `int`      |   | `:c`   | `min(max(a, b), c)`     | `int`      |
+| `1234` | `1234`           | Done       |   | `\|%`  | `a b -> a // b a % b`   | Done       |
+| `A`    | `10`             | TODO       |   | `\|/`  | `a // b ** v_b(a)`      | Done       |
+| `O`    | Tuck `1`         | Done       |   | `\|<`  | `a << b`                | Done       |
+| `U`    | `-1`             | Done       |   | `\|>`  | `a >> b`                | Done       |
+| `Z`    | Tuck `0`         | Done       |   | `\|1`  | `(-1) ** a`             | Done       |
+|        |                  |            |   | `\|2`  | `2 ** a`                | Done       |
+| `a`    | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | TODO       |
+| `b`    | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | TODO       |
+| `c`    | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
+| `d`    | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
+| `n`    | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
+| `[`    | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | TODO       |
+| `s`    | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | *...*      |
+|        |                  |            |   | `\|l`  | `lcm(a,b)`              | *...*      |
+| `+`    | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | TODO       |
+| `-`    | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | TODO       |
+| `*`    | `a * b`          | Done       |   | `\|q`  | `int(sqrt(a))`          | Done       |
+| `/`    | `a // b`         | Done       |   | `:~`   | `a \| 2**bitlen(a) - 1` | Done       |
+| `%`    | `a % b`          | Done       |   | `:!`   | Does `gcd(a,b) == 1`?   | Done       |
+| `#`    | `a ** b`         | Done       |   | `:-`   | `abs(a - b)`            | Done       |
+| `^`    | `a + 1`          | Done       |   | `:@`   | `(a >> b) & 1`          | Done       |
+| `v`    | `a - 1`          | Done       |   | `:[`   | `a & ~(1 << b)`         | Done       |
+| `h`    | `a // 2`         | Done       |   | `:]`   | `a \| (1 << b)`         | Done       |
+| `H`    | `a * 2`          | Done       |   | `::`   | `a ^ (1 << b)`          | Done       |
+| `I`    | `a & b`          | Done       |   | `:/`   | `v_b(a)`                | Done       |
+| `M`    | `a \| b`         | Done       |   | `:+`   | `sign(a)`               | Done       |
+| `S`    | `a ^ b`          | Done       |   | `:1`   | `bit_count(a)`          | TODO       |
+| `J`    | `a ** 2`         | Done       |   | `:2`   | `int(log(a,2))`         | Done       |
+| `N`    | `-a`             | Done       |   | `:A`   | `int(log(a,10))`        | Done       |
+| `t`    | `min(a, b)`      | Done       |   | `:b`   | Is `b <= a < c`?        | Done       |
+| `T`    | `max(a, b)`      | Done       |   | `:c`   | `min(max(a, b), c)`     | Done       |
 |        |                  |            |   | `:C`   | `a`th Catalan number    | TODO       |
-| `!`    | `!a`             | `int`      |   | `:g`   | `a & -a`                | `int`      |
-| `<`    | `a < b`          | `int`      |   | `:G`   | `2**int(log(a,2))`      | `int`      |
-| `>`    | `a > b`          | `int`      |   | `:J`   | `a b -> a**2 b**2`      | `int`      |
-| `=`    | `a == b`         | `int`      |   | `:m`   | `ceil(a / b) * b`       | `int`      |
+| `!`    | `!a`             | Done       |   | `:g`   | `a & -a`                | Done       |
+| `<`    | `a < b`          | Done       |   | `:G`   | `2**int(log(a,2))`      | Done       |
+| `>`    | `a > b`          | Done       |   | `:J`   | `a b -> a**2 b**2`      | Done       |
+| `=`    | `a == b`         | Done       |   | `:m`   | `ceil(a / b) * b`       | Done       |
 |        |                  |            |   | `:N`   | Does `a == k ** b`?     | TODO       |
 |        |                  |            |   | `:p`   | Largest prime `< a`     | TODO       |
 |        |                  |            |   | `:P`   | Next prime `>= a`       | TODO       |
