@@ -108,7 +108,7 @@ static void print_source(const Node *node) {
         const Op op = instructions[--count];
 
         if (op.is_number) {
-            printf("%lld", op.opcode);
+            printf("%zu", op.opcode);
         } else {
             // Print each char one at a time
             for (int shift = 8 * (length(op) - 1); shift >= 0; shift -= 8) {
@@ -152,7 +152,7 @@ int main(void) {
 
     for (int n = 0; n < MAX_LENGTH; n++) {
         CacheLevel *current = &cache[n];
-        printf("Length %d done (%lld expressions)\n", (n), (n) * (current->count));
+        printf("Length %d done (%zu expressions)\n", (n), (n) * (current->count));
 
         for (size_t i = 0; i < current->count; i++) {
             Node *parent = current->nodes[i];
