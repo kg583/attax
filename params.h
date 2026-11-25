@@ -32,6 +32,8 @@ constexpr const char* OPS[] = {
     "^",
     "v",
     "c",
+    "X",
+    "x",
     "|6",
     ":t"
 };

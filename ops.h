@@ -83,6 +83,11 @@ bool unary(State *state, int64_t (*op)(int64_t));
 bool binary(State *state, int64_t (*op)(int64_t, int64_t));
 bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t));
 
+bool X(State* state);
+bool Y(State* state);
+bool x(State* state);
+bool y(State* state);
+
 bool divmod(State *state);
 bool square_two(State *state);
 

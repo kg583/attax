@@ -415,6 +415,36 @@ bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
     return true;
 }
 
+bool X(State* state) {
+    if (DEPTH < 1) return false;
+
+    state->x = STACK[DEPTH - 1];
+    state->x_init = true;
+    return true;
+}
+
+bool Y(State* state) {
+    if (DEPTH < 1) return false;
+
+    state->y = STACK[DEPTH - 1];
+    state->y_init = true;
+    return true;
+}
+
+bool x(State* state) {
+    if (!state->x_init) return false;
+
+    push(state, state->x);
+    return true;
+}
+
+bool y(State* state) {
+    if (!state->y_init) return false;
+
+    push(state, state->y);
+    return true;
+}
+
 
 bool divmod(State *state) {
     if (DEPTH < 2) return false;

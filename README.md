@@ -27,46 +27,47 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 
 | **Op** | **Code**         | **Status** |   | **Op** | **Code**                | **Status** |
 |--------|------------------|------------|---|--------|-------------------------|------------|
-| `1234` | `1234`           | Done       |   | `\|%`  | `a b -> a // b a % b`   | Done       |
-| `A`    | `10`             | TODO       |   | `\|/`  | `a // b ** v_b(a)`      | Done       |
-| `O`    | Tuck `1`         | Done       |   | `\|<`  | `a << b`                | Done       |
-| `U`    | `-1`             | Done       |   | `\|>`  | `a >> b`                | Done       |
-| `Z`    | Tuck `0`         | Done       |   | `\|1`  | `(-1) ** a`             | Done       |
-|        |                  |            |   | `\|2`  | `2 ** a`                | Done       |
-| `a`    | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | Done       |
-| `b`    | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | Done       |
-| `c`    | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
-| `d`    | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
-| `n`    | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
-| `[`    | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | TODO       |
-| `s`    | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | Done       |
-|        |                  |            |   | `\|l`  | `lcm(a,b)`              | Done       |
-| `+`    | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | Done       |
-| `-`    | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | Done       |
-| `*`    | `a * b`          | Done       |   | `\|q`  | `int(sqrt(a))`          | Done       |
-| `/`    | `a // b`         | Done       |   | `:~`   | `a \| 2**bitlen(a) - 1` | Done       |
-| `%`    | `a % b`          | Done       |   | `:!`   | Does `gcd(a,b) == 1`?   | Done       |
-| `#`    | `a ** b`         | Done       |   | `:-`   | `abs(a - b)`            | Done       |
-| `^`    | `a + 1`          | Done       |   | `:@`   | `(a >> b) & 1`          | Done       |
-| `v`    | `a - 1`          | Done       |   | `:[`   | `a & ~(1 << b)`         | Done       |
-| `h`    | `a // 2`         | Done       |   | `:]`   | `a \| (1 << b)`         | Done       |
-| `H`    | `a * 2`          | Done       |   | `::`   | `a ^ (1 << b)`          | Done       |
-| `I`    | `a & b`          | Done       |   | `:/`   | `v_b(a)`                | Done       |
-| `M`    | `a \| b`         | Done       |   | `:+`   | `sign(a)`               | Done       |
-| `S`    | `a ^ b`          | Done       |   | `:1`   | `bit_count(a)`          | Done       |
-| `J`    | `a ** 2`         | Done       |   | `:2`   | `int(log(a,2))`         | Done       |
-| `N`    | `-a`             | Done       |   | `:A`   | `int(log(a,10))`        | Done       |
-| `t`    | `min(a, b)`      | Done       |   | `:b`   | Is `b <= a < c`?        | Done       |
-| `T`    | `max(a, b)`      | Done       |   | `:c`   | `min(max(a, b), c)`     | Done       |
-|        |                  |            |   | `:C`   | `a`th Catalan number    | TODO       |
-| `!`    | `!a`             | Done       |   | `:g`   | `a & -a`                | Done       |
-| `<`    | `a < b`          | Done       |   | `:G`   | `2**int(log(a,2))`      | Done       |
-| `>`    | `a > b`          | Done       |   | `:J`   | `a b -> a**2 b**2`      | Done       |
-| `=`    | `a == b`         | Done       |   | `:m`   | `ceil(a / b) * b`       | Done       |
-|        |                  |            |   | `:N`   | Does `a == k ** b`?     | Done       |
-|        |                  |            |   | `:p`   | Largest prime `< a`     | Done       |
-|        |                  |            |   | `:P`   | Next prime `>= a`       | Done       |
-|        |                  |            |   | `:t`   | `totient(a)`            | Done       |
+| `123` | `123`            | Done       |   | `\|%`  | `a b -> a // b a % b`   | Done       |
+| `A`   | `10`             | TODO       |   | `\|/`  | `a // b ** v_b(a)`      | Done       |
+| `O`   | Tuck `1`         | Done       |   | `\|<`  | `a << b`                | Done       |
+| `U`   | `-1`             | Done       |   | `\|>`  | `a >> b`                | Done       |
+| `Z`   | Tuck `0`         | Done       |   | `\|1`  | `(-1) ** a`             | Done       |
+|       |                  |            |   | `\|2`  | `2 ** a`                | Done       |
+| `a`   | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | Done       |
+| `b`   | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | Done       |
+| `c`   | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
+| `d`   | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
+| `n`   | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
+| `[`   | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | TODO       |
+| `s`   | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | Done       |
+|       |                  |            |   | `\|l`  | `lcm(a,b)`              | Done       |
+| `+`   | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | Done       |
+| `-`   | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | Done       |
+| `*`   | `a * b`          | Done       |   | `\|q`  | `int(sqrt(a))`          | Done       |
+| `/`   | `a // b`         | Done       |   | `:~`   | `a \| 2**bitlen(a) - 1` | Done       |
+| `%`   | `a % b`          | Done       |   | `:!`   | Does `gcd(a,b) == 1`?   | Done       |
+| `#`   | `a ** b`         | Done       |   | `:-`   | `abs(a - b)`            | Done       |
+| `^`   | `a + 1`          | Done       |   | `:@`   | `(a >> b) & 1`          | Done       |
+| `v`   | `a - 1`          | Done       |   | `:[`   | `a & ~(1 << b)`         | Done       |
+| `h`   | `a // 2`         | Done       |   | `:]`   | `a \| (1 << b)`         | Done       |
+| `H`   | `a * 2`          | Done       |   | `::`   | `a ^ (1 << b)`          | Done       |
+| `I`   | `a & b`          | Done       |   | `:/`   | `v_b(a)`                | Done       |
+| `M`   | `a \| b`         | Done       |   | `:+`   | `sign(a)`               | Done       |
+| `S`   | `a ^ b`          | Done       |   | `:1`   | `bit_count(a)`          | Done       |
+| `J`   | `a ** 2`         | Done       |   | `:2`   | `int(log(a,2))`         | Done       |
+| `N`   | `-a`             | Done       |   | `:A`   | `int(log(a,10))`        | Done       |
+| `t`   | `min(a, b)`      | Done       |   | `:b`   | Is `b <= a < c`?        | Done       |
+| `T`   | `max(a, b)`      | Done       |   | `:c`   | `min(max(a, b), c)`     | Done       |
+|       |                  |            |   | `:C`   | `a`th Catalan number    | TODO       |
+| `!`   | `!a`             | Done       |   | `:g`   | `a & -a`                | Done       |
+| `<`   | `a < b`          | Done       |   | `:G`   | `2**int(log(a,2))`      | Done       |
+| `>`   | `a > b`          | Done       |   | `:J`   | `a b -> a**2 b**2`      | Done       |
+| `=`   | `a == b`         | Done       |   | `:m`   | `ceil(a / b) * b`       | Done       |
+|       |                  |            |   | `:N`   | Does `a == k ** b`?     | Done       |
+| `X`   | Set `X`          | Done       |   | `:p`   | Largest prime `< a`     | Done       |
+| `Y`   | Set `Y`          | Done       |   | `:P`   | Next prime `>= a`       | Done       |
+| `x`   | Push `X`         | Done       |   | `:t`   | `totient(a)`            | Done       |
+| `y`   | Push `Y`         | Done       |   |        |                         |            |
 
 #### Int to Float Ops
 

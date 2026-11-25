@@ -49,6 +49,11 @@ static bool execute(State *state, const Op op) {
     case 0x6E: return next(state);
     case 0x73: return swap(state);
 
+    case 0x58: return X(state);
+    case 0x59: return Y(state);
+    case 0x78: return x(state);
+    case 0x79: return y(state);
+
     case 0x3A21: return binary(state, coprime);
     case 0x3A2B: return unary(state, sign);
     case 0x3A2D: return binary(state, abs_diff);
@@ -140,6 +145,8 @@ int main() {
     for (size_t i = 0; i < NUM_INPUTS; i++) {
         root->states[i].depth = 1;
         root->states[i].stack[0] = inputs[i];
+        root->states[i].x_init = false;
+        root->states[i].y_init = false;
     }
 
     // Initialise cache
@@ -162,7 +169,7 @@ int main() {
         for (size_t i = 0; i < current->count; i++) {
             Node *parent = current->nodes[i];
 
-            for (size_t j = 0; j < NUM_OPS + (size_t)MAX_LITERAL + 1; j++) {
+            for (size_t j = 0; j < NUM_OPS + MAX_LITERAL + 1; j++) {
                 // Get either an operator or an integer literal
                 Op op;
 

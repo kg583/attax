@@ -13,6 +13,9 @@ typedef struct {
 
     int64_t x;
     int64_t y;
+
+    bool x_init;
+    bool y_init;
 } State;
 
 inline bool identical(const State *s, const State *t) {
