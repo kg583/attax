@@ -13,11 +13,11 @@ static_assert(MAX_LITERAL <= INT64_MAX,
 
 
 static constexpr int64_t inputs[] = {
-    0,1,1300
+    1,45
 };
 
 static constexpr int64_t targets[] = {
-    2,3,10663
+    1,24
 };
 
 #define NUM_INPUTS (sizeof inputs / sizeof inputs[0])
@@ -32,7 +32,8 @@ constexpr const char* OPS[] = {
     "^",
     "v",
     "c",
-    "|6"
+    "|6",
+    ":t"
 };
 
 #define NUM_OPS (sizeof OPS / sizeof OPS[0])

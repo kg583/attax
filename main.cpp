@@ -69,7 +69,7 @@ static bool execute(State *state, const Op op) {
     case 0x3A67: return unary(state, low_bit);
     case 0x3A6D: return binary(state, next_multiple);
     case 0x3A70: return unary(state, last_prime);
-    // case 0x3A74: return unary(state, totient);
+    case 0x3A74: return unary(state, totient);
     case 0x3A7E: return unary(state, set_interior);
 
     case 0x7C25: return divmod(state);
