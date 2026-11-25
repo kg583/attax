@@ -117,7 +117,16 @@ int64_t two_power(const int64_t a) {
     return pow_floor(2, a);
 }
 
-// TODO: set up precomputation of Fibonacci numbers
+int64_t nth_fib(int64_t a) {
+    if (a == -1) return 0;
+    if (a < -1) return (a % 2 ? -1 : 1) * nth_fib(-2 - a);
+
+    int64_t m = 1;
+    int64_t n = 1;
+    for (; a > 0; a--) { m = n - m; n += m; }
+
+    return n;
+}
 
 int64_t nth_prime(int64_t a) {
     if (a < 0) return -nth_prime(-1 - a);

@@ -76,7 +76,7 @@ static bool execute(State *state, const Op op) {
     case 0x7C2F: return binary(state, div_all);
     case 0x7C31: return unary(state, parity_sign);
     case 0x7C32: return unary(state, two_power);
-    // case 0x7C35: return unary(state, nth_fib);
+    case 0x7C35: return unary(state, nth_fib);
     case 0x7C36: return unary(state, nth_prime);
     case 0x7C3C: return binary(state, shift_left);
     case 0x7C3E: return binary(state, shift_right);
@@ -123,7 +123,7 @@ static void print_source(const Node *node) {
 
 int main() {
     // Initialise opcodes
-    uint64_t OPCODES[NUM_OPS]= {};
+    uint64_t OPCODES[NUM_OPS] = {};
     for (size_t i = 0; i < NUM_OPS; i++) {
         OPCODES[i] = opcode(OPS[i]);
     }
