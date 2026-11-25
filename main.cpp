@@ -53,7 +53,7 @@ static bool execute(State *state, const Op op) {
     case 0x3A2B: return unary(state, sign);
     case 0x3A2D: return binary(state, abs_diff);
     case 0x3A2F: return binary(state, multiplicity);
-    // case 0x3A31: return unary(state, popcount);
+    case 0x3A31: return unary(state, popcount);
     case 0x3A32: return unary(state, floor_log_2);
     case 0x3A3A: return binary(state, toggle_bit);
     case 0x3A40: return binary(state, get_bit);

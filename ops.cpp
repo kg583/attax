@@ -239,6 +239,11 @@ int64_t sign(const int64_t a) {
     return a > 0 ? 1 : -1;
 }
 
+int64_t popcount(const int64_t a) {
+    // Note: GCC extension
+    return __builtin_popcount(a);
+}
+
 int64_t floor_log_2(const int64_t a) {
     return std::log2(a);
 }

@@ -33,14 +33,14 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `U`    | `-1`             | Done       |   | `\|>`  | `a >> b`                | Done       |
 | `Z`    | Tuck `0`         | Done       |   | `\|1`  | `(-1) ** a`             | Done       |
 |        |                  |            |   | `\|2`  | `2 ** a`                | Done       |
-| `a`    | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | TODO       |
+| `a`    | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | Done       |
 | `b`    | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | Done       |
 | `c`    | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
 | `d`    | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
 | `n`    | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
 | `[`    | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | TODO       |
-| `s`    | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | *...*      |
-|        |                  |            |   | `\|l`  | `lcm(a,b)`              | *...*      |
+| `s`    | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | Done       |
+|        |                  |            |   | `\|l`  | `lcm(a,b)`              | Done       |
 | `+`    | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | TODO       |
 | `-`    | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | Done       |
 | `*`    | `a * b`          | Done       |   | `\|q`  | `int(sqrt(a))`          | Done       |
@@ -53,7 +53,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `H`    | `a * 2`          | Done       |   | `::`   | `a ^ (1 << b)`          | Done       |
 | `I`    | `a & b`          | Done       |   | `:/`   | `v_b(a)`                | Done       |
 | `M`    | `a \| b`         | Done       |   | `:+`   | `sign(a)`               | Done       |
-| `S`    | `a ^ b`          | Done       |   | `:1`   | `bit_count(a)`          | TODO       |
+| `S`    | `a ^ b`          | Done       |   | `:1`   | `bit_count(a)`          | Done       |
 | `J`    | `a ** 2`         | Done       |   | `:2`   | `int(log(a,2))`         | Done       |
 | `N`    | `-a`             | Done       |   | `:A`   | `int(log(a,10))`        | Done       |
 | `t`    | `min(a, b)`      | Done       |   | `:b`   | Is `b <= a < c`?        | Done       |
