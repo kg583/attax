@@ -84,7 +84,7 @@ static bool execute(State *state, const Op op) {
     // case 0x7C43: return binary(state, choose);
     // case 0x7C46: return unary(state, factorial);
     // case 0x7C6E: return binary(state, int_nth_root);
-    case 0x7C61: return unary(state, int64_abs);
+    case 0x7C61: return unary(state, std::abs);
     case 0x7C65: return unary(state, is_even);
     case 0x7C67: return binary(state, gcd);
     case 0x7C6C: return binary(state, lcm);

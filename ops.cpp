@@ -1,4 +1,5 @@
-#include <math.h>
+#include <cmath>
+#include <numeric>
 #include <stdlib.h>
 #include "ops.h"
 #include "primes.h"
@@ -25,7 +26,7 @@ int64_t mod(const int64_t a, const int64_t b) {
 }
 
 int64_t pow_floor(const int64_t a, const int64_t b) {
-    return powl(a, b);
+    return std::pow(a, b);
 }
 
 int64_t inc(const int64_t a) {
@@ -65,11 +66,11 @@ int64_t negate(const int64_t a) {
 }
 
 int64_t min(const int64_t a, const int64_t b) {
-    return fminl(a, b);
+    return std::min(a, b);
 }
 
 int64_t max(const int64_t a, const int64_t b) {
-    return fmaxl(a, b);
+    return std::max(a, b);
 }
 
 
@@ -121,12 +122,12 @@ int64_t two_power(const int64_t a) {
 int64_t nth_prime(int64_t a) {
     if (a < 0) return -nth_prime(-1 - a);
 
-    if (a < (int64_t)N_PRIMES_10K) {
+    if (a < static_cast<int64_t>(N_PRIMES_10K)) {
         return PRIMES_10K[a];
     }
 
     int64_t val = PRIME_10K;
-    for (; a > (int64_t)N_PRIMES_10K; a--) {
+    for (; a > static_cast<int64_t>(N_PRIMES_10K); a--) {
         val = next_prime(val + 2);
     }
 
@@ -137,27 +138,18 @@ int64_t ten_power(const int64_t a) {
     return pow_floor(10, a);
 }
 
-int64_t int64_abs(const int64_t a) {
-    return llabs(a);
-}
-
 int64_t is_even(const int64_t a) {
     return a % 2 ? 0 : 1;
 }
 
 // TODO: signaling for different errors in factorial
 
-// TODO: support negative inputs
 int64_t gcd(const int64_t a, const int64_t b) {
-    if (a == 0) return b;
-    if (b == 0) return a;
-
-    return a >= b ? gcd(b, a % b) : gcd(b % a, a);
+    return std::gcd(a, b);
 }
 
-// TODO: calculate from the ground up to prevent overflow
 int64_t lcm(const int64_t a, const int64_t b) {
-    return a * b / gcd(a, b);
+    return std::lcm(a, b);
 }
 
 int64_t is_prime(int64_t a) {
@@ -182,7 +174,7 @@ int64_t is_prime(int64_t a) {
 }
 
 int64_t int_sqrt(const int64_t a) {
-    return sqrtl(a);
+    return std::sqrt(a);
 }
 
 int64_t set_interior(int64_t a) {
@@ -197,7 +189,7 @@ int64_t coprime(const int64_t a, const int64_t b) {
 }
 
 int64_t abs_diff(const int64_t a, const int64_t b) {
-    return llabs(a - b);
+    return std::abs(a - b);
 }
 
 int64_t get_bit(const int64_t a, const int64_t b) {
@@ -235,11 +227,11 @@ int64_t sign(const int64_t a) {
 }
 
 int64_t floor_log_2(const int64_t a) {
-    return log2l(a);
+    return std::log2(a);
 }
 
 int64_t floor_log_10(const int64_t a) {
-    return log10l(a);
+    return std::log10(a);
 }
 
 int64_t between(const int64_t a, const int64_t b, const int64_t c) {
@@ -247,7 +239,7 @@ int64_t between(const int64_t a, const int64_t b, const int64_t c) {
 }
 
 int64_t clamp(const int64_t a, const int64_t b, const int64_t c) {
-    return fminl(fmaxl(a, b), c);
+    return std::min(std::max(a, b), c);
 }
 
 int64_t low_bit(const int64_t a) {
@@ -259,7 +251,7 @@ int64_t high_bit(const int64_t a) {
 }
 
 int64_t next_multiple(const int64_t a, const int64_t b) {
-    return ceill(static_cast<long double>(a) / b) * b;
+    return std::ceil(static_cast<long double>(a) / b) * b;
 }
 
 int64_t next_prime(int64_t a) {

@@ -33,7 +33,6 @@ int64_t shift_left(int64_t a, int64_t b);
 int64_t shift_right(int64_t a, int64_t b);
 int64_t parity_sign(int64_t a);
 int64_t two_power(int64_t a);
-int64_t int64_abs(int64_t a);
 int64_t nth_fib(int64_t a);
 int64_t nth_prime(int64_t a);
 int64_t ten_power(int64_t a);
