@@ -24,7 +24,7 @@ static constexpr int64_t targets[] = {
 static_assert(sizeof targets / sizeof targets[0] == NUM_INPUTS,
               "Input array length doesn't match target array length");
 
-static const char* OPS[] = {
+constexpr const char* OPS[] = {
     "+",
     "-",
     "*",
@@ -37,7 +37,6 @@ static const char* OPS[] = {
 };
 
 #define NUM_OPS (sizeof OPS / sizeof OPS[0])
-static uint64_t OPCODES[NUM_OPS];
 
 
 #endif

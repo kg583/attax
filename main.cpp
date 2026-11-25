@@ -36,7 +36,7 @@ static bool execute(State *state, const Op op) {
     case 0x74: return binary(state, min);
     case 0x76: return unary(state, dec);
 
-    case 0x21: return unary(state, not);
+    case 0x21: return unary(state, logical_not);
     case 0x3C: return binary(state, less);
     case 0x3D: return binary(state, equal);
     case 0x3E: return binary(state, greater);
@@ -123,14 +123,15 @@ static void print_source(const Node *node) {
 
 int main(void) {
     // Initialise opcodes
+    uint64_t OPCODES[NUM_OPS]= {};
     for (size_t i = 0; i < NUM_OPS; i++) {
         OPCODES[i] = opcode(OPS[i]);
     }
 
-    CacheLevel cache[MAX_LENGTH + 1] = {0};
+    CacheLevel cache[MAX_LENGTH + 1] = {};
 
     // Initialise root
-    Node *root = calloc(1, sizeof(Node));
+    Node *root = (Node *)calloc(1, sizeof(Node));
     if (!root) {
         return EXIT_FAILURE;
     }
@@ -142,7 +143,7 @@ int main(void) {
     }
 
     // Initialise cache
-    cache[0].nodes = malloc(sizeof(Node *));
+    cache[0].nodes = (Node **)malloc(sizeof(Node *));
     if (!cache[0].nodes) {
         free(root);
         return EXIT_FAILURE;
@@ -180,7 +181,7 @@ int main(void) {
                     continue;
 
                 // Allocate the new node
-                Node *child = malloc(sizeof(Node));
+                Node *child = (Node *)malloc(sizeof(Node));
 
                 if (!child) {
                     result = EXIT_FAILURE;
@@ -211,7 +212,7 @@ int main(void) {
                 if (level->count == level->capacity) {
                     const size_t new_capacity = level->capacity ? level->capacity * 2 : 16;
 
-                    Node **new_nodes = realloc(
+                    Node **new_nodes = (Node **)realloc(
                         level->nodes,
                         new_capacity * sizeof(Node *)
                     );
