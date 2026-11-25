@@ -97,7 +97,7 @@ static inline bool matches_targets(const Node *node) {
         const State *state = &node->states[k];
 
         if (state->depth == 0 ||
-            state->stack[state->depth - 1] != targets[k]) {
+            !match_output(state->stack[state->depth - 1], targets[k])) {
             return false;
         }
     }
