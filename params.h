@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define MAX_STACK 16
-#define MAX_LENGTH 4
+#define MAX_LENGTH 6
 // Int literals from 0..MAX_LITERAL inclusive
 #define MAX_LITERAL 9
 
@@ -13,11 +13,11 @@ static_assert(MAX_LITERAL <= INT64_MAX,
 
 
 static constexpr int64_t inputs[] = {
-    1,45
+    1,2,3
 };
 
 static constexpr int64_t targets[] = {
-    1,24
+    2,4,6
 };
 
 #define NUM_INPUTS (sizeof inputs / sizeof inputs[0])
@@ -34,8 +34,8 @@ constexpr const char* OPS[] = {
     "c",
     "X",
     "x",
-    "|6",
-    ":t"
+    // "|6",
+    // ":t"
 };
 
 #define NUM_OPS (sizeof OPS / sizeof OPS[0])

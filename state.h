@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <string.h>
+#include <functional>
 #include "params.h"
 
 
@@ -19,9 +20,42 @@ typedef struct {
 } State;
 
 inline bool identical(const State *s, const State *t) {
-    return (s->depth == t->depth) && (s->x == t->x) && (s->y == t-> y) &&
-        (memcmp(s->stack, t->stack, s->depth) == 0);
+    return s->depth == t->depth &&
+        s->x_init == t->x_init && (!s->x_init || s->x == t->x) &&
+        s->y_init == t->y_init && (!s->y_init || s->y == t->y) &&
+        memcmp(s->stack, t->stack, s->depth * sizeof s->stack[0]) == 0;
 }
+
+struct StatesHash {
+    size_t operator()(const State *states) const noexcept {
+        const std::hash<int64_t> hash_value{};
+        size_t hash = 0;
+
+        for (size_t i = 0; i < NUM_INPUTS; i++) {
+            const State &state = states[i];
+            hash = 31 * hash + hash_value(state.depth);
+            for (size_t j = 0; j < state.depth; j++) {
+                hash = 31 * hash + hash_value(state.stack[j]);
+            }
+            hash = 31 * hash + hash_value(state.x_init);
+            hash = 31 * hash + (state.x_init ? hash_value(state.x) : 0);
+            hash = 31 * hash + hash_value(state.y_init);
+            hash = 31 * hash + (state.y_init ? hash_value(state.y) : 0);
+        }
+        return hash;
+    }
+};
+
+struct StatesEqual {
+    bool operator()(const State *a, const State *b) const noexcept {
+        for (size_t i = 0; i < NUM_INPUTS; i++) {
+            if (!identical(&a[i], &b[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
 
 
 typedef struct {

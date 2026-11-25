@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <unordered_set>
 #include <vector>
 
 #include "ops.h"
@@ -152,6 +153,7 @@ int main() {
     }
 
     CacheLevel cache[MAX_LENGTH + 1] = {};
+    std::unordered_set<const State*, StatesHash, StatesEqual> seen;
 
     // Initialise root
     Node *root = static_cast<Node*>(calloc(1, sizeof(Node)));
@@ -179,6 +181,8 @@ int main() {
     cache[0].capacity = 1;
 
     int result = EXIT_SUCCESS;
+
+    seen.insert(root->states);
 
     for (int n = 1; n <= MAX_LENGTH; n++) {
         CacheLevel *level = &cache[n];
@@ -215,8 +219,10 @@ int main() {
                         free(child);
                         continue;
                     }
-
-                    // TODO: Hash and deduplicate the state
+                    
+                    if (matches_targets(child)) {
+                        print_source(child);
+                    }
 
                     // Grow the cache array if necessary
                     if (level->count == level->capacity) {
@@ -236,13 +242,15 @@ int main() {
                         level->nodes = new_nodes;
                         level->capacity = new_capacity;
                     }
+                    
+                    // Already seen
+                    if (!seen.insert(child->states).second) {
+                        free(child);
+                        continue;
+                    }
 
                     // Add the child to its cache level
                     level->nodes[level->count++] = child;
-
-                    if (matches_targets(child)) {
-                        print_source(child);
-                    }
                 }
             }
         }
