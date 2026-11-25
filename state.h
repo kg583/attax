@@ -51,7 +51,7 @@ inline uint64_t opcode(const char* name) {
 
 typedef struct Node {
     State states[NUM_INPUTS];
-    struct Node *parent;
+    Node *parent;
     Op op;
 } Node;
 

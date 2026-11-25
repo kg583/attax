@@ -163,12 +163,12 @@ int64_t lcm(const int64_t a, const int64_t b) {
 int64_t is_prime(int64_t a) {
     if (a < 0) a = -a;
 
-    for (size_t i = 0; i < N_PRIMES_10K; i++) {
-        if (a == PRIMES_10K[i]) {
+    for (const int64_t i : PRIMES_10K) {
+        if (a == i) {
             return true;
         }
 
-        if (a % PRIMES_10K[i] == 0) {
+        if (a % i == 0) {
             return false;
         }
     }
@@ -259,7 +259,7 @@ int64_t high_bit(const int64_t a) {
 }
 
 int64_t next_multiple(const int64_t a, const int64_t b) {
-    return ceill((long double) a / b) * b;
+    return ceill(static_cast<long double>(a) / b) * b;
 }
 
 int64_t next_prime(int64_t a) {
