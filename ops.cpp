@@ -73,7 +73,7 @@ int64_t max(const int64_t a, const int64_t b) {
 }
 
 
-int64_t not(const int64_t a) {
+int64_t logical_not(const int64_t a) {
     return !a;
 }
 

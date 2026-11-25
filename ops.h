@@ -23,7 +23,7 @@ int64_t negate(int64_t a);
 int64_t min(int64_t a, int64_t b);
 int64_t max(int64_t a, int64_t b);
 
-int64_t not(int64_t a);
+int64_t logical_not(int64_t a);
 int64_t less(int64_t a, int64_t b);
 int64_t greater(int64_t a, int64_t b);
 int64_t equal(int64_t a, int64_t b);
