@@ -60,7 +60,7 @@ static bool execute(State *state, const Op op) {
     case 0x3A41: return unary(state, floor_log_10);
     case 0x3A47: return unary(state, high_bit);
     case 0x3A4A: return square_two(state);
-    // case 0x3A4E: return binary(state, is_power);
+    case 0x3A4E: return binary(state, is_power);
     case 0x3A50: return unary(state, next_prime);
     case 0x3A5B: return binary(state, unset_bit);
     case 0x3A5D: return binary(state, set_bit);
@@ -83,7 +83,7 @@ static bool execute(State *state, const Op op) {
     case 0x7C41: return unary(state, ten_power);
     // case 0x7C43: return binary(state, choose);
     // case 0x7C46: return unary(state, factorial);
-    // case 0x7C6E: return binary(state, int_nth_root);
+    case 0x7C6E: return binary(state, int_nth_root);
     case 0x7C61: return unary(state, std::abs);
     case 0x7C65: return unary(state, is_even);
     case 0x7C67: return binary(state, gcd);

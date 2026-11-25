@@ -41,7 +41,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `[`    | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | TODO       |
 | `s`    | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | Done       |
 |        |                  |            |   | `\|l`  | `lcm(a,b)`              | Done       |
-| `+`    | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | TODO       |
+| `+`    | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | Done       |
 | `-`    | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | Done       |
 | `*`    | `a * b`          | Done       |   | `\|q`  | `int(sqrt(a))`          | Done       |
 | `/`    | `a // b`         | Done       |   | `:~`   | `a \| 2**bitlen(a) - 1` | Done       |
@@ -63,7 +63,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `<`    | `a < b`          | Done       |   | `:G`   | `2**int(log(a,2))`      | Done       |
 | `>`    | `a > b`          | Done       |   | `:J`   | `a b -> a**2 b**2`      | Done       |
 | `=`    | `a == b`         | Done       |   | `:m`   | `ceil(a / b) * b`       | Done       |
-|        |                  |            |   | `:N`   | Does `a == k ** b`?     | TODO       |
+|        |                  |            |   | `:N`   | Does `a == k ** b`?     | Done       |
 |        |                  |            |   | `:p`   | Largest prime `< a`     | Done       |
 |        |                  |            |   | `:P`   | Next prime `>= a`       | Done       |
 |        |                  |            |   | `:t`   | `totient(a)`            | Done       |

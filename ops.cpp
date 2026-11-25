@@ -161,6 +161,10 @@ int64_t lcm(const int64_t a, const int64_t b) {
     return std::lcm(a, b);
 }
 
+int64_t int_nth_root(const int64_t a, const int64_t b) {
+    return std::pow(a, 1 / static_cast<long double>(b));
+}
+
 int64_t is_prime(int64_t a) {
     if (a < 0) a = -a;
 
@@ -270,6 +274,10 @@ int64_t high_bit(const int64_t a) {
 
 int64_t next_multiple(const int64_t a, const int64_t b) {
     return std::ceil(static_cast<long double>(a) / b) * b;
+}
+
+int64_t is_power(const int64_t a, const int64_t b) {
+    return a == static_cast<int64_t>(std::pow(int_nth_root(a, b), b));
 }
 
 int64_t next_prime(int64_t a) {
