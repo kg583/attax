@@ -155,13 +155,17 @@ int64_t lcm(const int64_t a, const int64_t b) {
 int64_t is_prime(int64_t a) {
     if (a < 0) a = -a;
 
-    for (const int64_t i : PRIMES_10K) {
-        if (a == i) {
+    for (const int64_t p : PRIMES_10K) {
+        if (a == p) {
             return true;
         }
 
-        if (a % i == 0) {
+        if (a % p == 0) {
             return false;
+        }
+
+        if (p > a / p) {
+            return true;
         }
     }
 
@@ -185,7 +189,7 @@ int64_t set_interior(int64_t a) {
 }
 
 int64_t coprime(const int64_t a, const int64_t b) {
-    return gcd(a, b) == 1 ? 1 : 0;
+    return gcd(a, b) == 1;
 }
 
 int64_t abs_diff(const int64_t a, const int64_t b) {
@@ -235,7 +239,7 @@ int64_t floor_log_10(const int64_t a) {
 }
 
 int64_t between(const int64_t a, const int64_t b, const int64_t c) {
-    return b <= a && a < c ? 1 : 0;
+    return b <= a && a < c;
 }
 
 int64_t clamp(const int64_t a, const int64_t b, const int64_t c) {
@@ -268,24 +272,23 @@ int64_t last_prime(int64_t a) {
 int64_t totient(int64_t a) {
     if (a < 0) a = -a;
 
-    int64_t totient = 1;
+    int64_t t = 1;
     uint8_t i = 0;
 
     while (a > 1) {
-        const int64_t prime = nth_prime(i);
-        if (a % prime == 0) {
-            totient *= prime - 1;
-            a /= prime;
+        if (const int64_t p = nth_prime(i); a % p == 0) {
+            t *= p - 1;
+            a /= p;
 
-            while (a % prime == 0) {
-                totient *= prime;
-                a /= prime;
+            while (a % p == 0) {
+                t *= p;
+                a /= p;
             }
         }
         i++;
     }
 
-    return totient;
+    return t;
 }
 
 
