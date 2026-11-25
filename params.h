@@ -4,10 +4,11 @@
 #include <stdint.h>
 
 #define MAX_STACK 16
-#define MAX_LENGTH 6
+#define MAX_LENGTH 7
 // Int literals from 0..MAX_LITERAL inclusive
 #define MAX_LITERAL 9
 
+static_assert(MAX_LENGTH >= 1, "MAX_LENGTH must be at least 1");
 static_assert(MAX_LITERAL <= INT64_MAX,
     "MAX_LITERAL > INT64_MAX, this is not allowed as the calculations use int64_t");
 
@@ -17,7 +18,7 @@ static constexpr int64_t inputs[] = {
 };
 
 static constexpr int64_t targets[] = {
-    2,4,6
+    2,65,730
 };
 
 #define NUM_INPUTS (sizeof inputs / sizeof inputs[0])

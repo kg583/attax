@@ -152,7 +152,7 @@ int main() {
         OPCODES[op_length].push_back(op);
     }
 
-    CacheLevel cache[MAX_LENGTH + 1] = {};
+    CacheLevel cache[MAX_LENGTH] = {};
     std::unordered_set<const State*, StatesHash, StatesEqual> seen;
 
     // Initialise root
@@ -185,8 +185,6 @@ int main() {
     seen.insert(root->states);
 
     for (int n = 1; n <= MAX_LENGTH; n++) {
-        CacheLevel *level = &cache[n];
-
         for (int op_length = 1; op_length <= n; op_length++) {
             const std::vector<Op> &ops = OPCODES[op_length];
             if (ops.empty()) continue;
@@ -219,10 +217,17 @@ int main() {
                         free(child);
                         continue;
                     }
-                    
+
                     if (matches_targets(child)) {
                         print_source(child);
                     }
+
+                    if (n == MAX_LENGTH) {
+                        free(child);
+                        continue;
+                    }
+
+                    CacheLevel *level = &cache[n];
 
                     // Grow the cache array if necessary
                     if (level->count == level->capacity) {
@@ -242,7 +247,7 @@ int main() {
                         level->nodes = new_nodes;
                         level->capacity = new_capacity;
                     }
-                    
+
                     // Already seen
                     if (!seen.insert(child->states).second) {
                         free(child);
@@ -254,18 +259,22 @@ int main() {
                 }
             }
         }
-        
-        printf("Length %d done (%zu expressions)\n", n, level->count);
+
+        if (n == MAX_LENGTH) {
+            printf("Length %d done\n", n);
+        } else {
+            printf("Length %d done (%zu expressions)\n", n, cache[n].count);
+        }
     }
 
 
 cleanup:
     // Free every node and cache array
-    for (int n = 0; n <= MAX_LENGTH; n++) {
-        for (size_t i = 0; i < cache[n].count; i++)
-            free(cache[n].nodes[i]);
+    for (const CacheLevel &level : cache) {
+        for (size_t i = 0; i < level.count; i++)
+            free(level.nodes[i]);
 
-        free(cache[n].nodes);
+        free(level.nodes);
     }
 
     return result;
