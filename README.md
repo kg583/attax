@@ -34,7 +34,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `Z`    | Tuck `0`         | Done       |   | `\|1`  | `(-1) ** a`             | Done       |
 |        |                  |            |   | `\|2`  | `2 ** a`                | Done       |
 | `a`    | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | TODO       |
-| `b`    | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | TODO       |
+| `b`    | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | Done       |
 | `c`    | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
 | `d`    | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
 | `n`    | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
@@ -42,7 +42,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `s`    | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | *...*      |
 |        |                  |            |   | `\|l`  | `lcm(a,b)`              | *...*      |
 | `+`    | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | TODO       |
-| `-`    | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | TODO       |
+| `-`    | `a - b`          | Done       |   | `\|p`  | Is `a` prime?           | Done       |
 | `*`    | `a * b`          | Done       |   | `\|q`  | `int(sqrt(a))`          | Done       |
 | `/`    | `a // b`         | Done       |   | `:~`   | `a \| 2**bitlen(a) - 1` | Done       |
 | `%`    | `a % b`          | Done       |   | `:!`   | Does `gcd(a,b) == 1`?   | Done       |
@@ -64,9 +64,9 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `>`    | `a > b`          | Done       |   | `:J`   | `a b -> a**2 b**2`      | Done       |
 | `=`    | `a == b`         | Done       |   | `:m`   | `ceil(a / b) * b`       | Done       |
 |        |                  |            |   | `:N`   | Does `a == k ** b`?     | TODO       |
-|        |                  |            |   | `:p`   | Largest prime `< a`     | TODO       |
-|        |                  |            |   | `:P`   | Next prime `>= a`       | TODO       |
-|        |                  |            |   | `:t`   | `totient(a)`            | TODO       |
+|        |                  |            |   | `:p`   | Largest prime `< a`     | Done       |
+|        |                  |            |   | `:P`   | Next prime `>= a`       | Done       |
+|        |                  |            |   | `:t`   | `totient(a)`            | Done       |
 
 #### Int to Float Ops
 
