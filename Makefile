@@ -1,5 +1,5 @@
 
-CXX = gcc
+CXX = g++
 CXXFLAGS = -O3 -Wall -Wextra -Wpedantic
 
 TARGET = attax

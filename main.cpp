@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 
 #include "ops.h"
 #include "params.h"
@@ -127,10 +128,27 @@ static void print_source(const Node *node) {
 
 
 int main() {
-    // Initialise opcodes
-    uint64_t OPCODES[NUM_OPS] = {};
-    for (size_t i = 0; i < NUM_OPS; i++) {
-        OPCODES[i] = opcode(OPS[i]);
+    std::vector<Op> OPCODES[MAX_LENGTH + 1];
+
+    // Build ops
+    for (const char *name : OPS) {
+        Op op;
+        op.opcode = opcode(name);
+        op.is_number = false;
+        const int op_length = length(op);
+        if (op_length <= MAX_LENGTH) {
+            OPCODES[op_length].push_back(op);
+        }
+    }
+
+    // Build int literals
+    for (uint64_t literal = 0; literal <= MAX_LITERAL; literal++) {
+        Op op;
+        op.opcode = literal;
+        op.is_number = true;
+        const int op_length = length(op);
+        if (op_length > MAX_LENGTH) break;
+        OPCODES[op_length].push_back(op);
     }
 
     CacheLevel cache[MAX_LENGTH + 1] = {};
@@ -162,86 +180,74 @@ int main() {
 
     int result = EXIT_SUCCESS;
 
-    for (int n = 0; n < MAX_LENGTH; n++) {
-        CacheLevel *current = &cache[n];
-        printf("Length %d done (%zu expressions)\n", (n), (n) * (current->count));
+    for (int n = 1; n <= MAX_LENGTH; n++) {
+        CacheLevel *level = &cache[n];
 
-        for (size_t i = 0; i < current->count; i++) {
-            Node *parent = current->nodes[i];
+        for (int op_length = 1; op_length <= n; op_length++) {
+            const std::vector<Op> &ops = OPCODES[op_length];
+            if (ops.empty()) continue;
 
-            for (size_t j = 0; j < NUM_OPS + MAX_LITERAL + 1; j++) {
-                // Get either an operator or an integer literal
-                Op op;
+            const CacheLevel *parents = &cache[n - op_length];
+            for (size_t i = 0; i < parents->count; i++) {
+                Node *parent = parents->nodes[i];
 
-                if (j < NUM_OPS) {
-                    op.opcode = OPCODES[j];
-                    op.is_number = false;
-                } else {
-                    op.opcode = j - NUM_OPS;
-                    op.is_number = true;
-                }
+                for (const Op op : ops) {
+                    // Allocate the new node
+                    Node *child = static_cast<Node*>(malloc(sizeof(Node)));
 
-                const int new_length = n + length(op);
-
-                // Skip programs exceeding the limit
-                if (new_length > MAX_LENGTH)
-                    continue;
-
-                // Allocate the new node
-                Node *child = static_cast<Node*>(malloc(sizeof(Node)));
-
-                if (!child) {
-                    result = EXIT_FAILURE;
-                    goto cleanup;
-                }
-
-                // Initialise the child
-                *child = *parent;
-                child->parent = parent;
-                child->op = op;
-
-                // Execute op
-                size_t k = 0;
-                while (k < NUM_INPUTS && execute(&child->states[k], op)) {
-                    k++;
-                }
-                // Reject the candidate if execution fails on any input
-                if (k < NUM_INPUTS) {
-                    free(child);
-                    continue;
-                }
-
-                // TODO: Hash and deduplicate the state
-
-                CacheLevel *level = &cache[new_length];
-
-                // Grow the cache array if necessary
-                if (level->count == level->capacity) {
-                    const size_t new_capacity = level->capacity ? level->capacity * 2 : 16;
-
-                    Node **new_nodes = static_cast<Node**>(realloc(
-                        level->nodes,
-                        new_capacity * sizeof(Node*)
-                    ));
-
-                    if (!new_nodes) {
-                        free(child);
+                    if (!child) {
                         result = EXIT_FAILURE;
                         goto cleanup;
                     }
 
-                    level->nodes = new_nodes;
-                    level->capacity = new_capacity;
-                }
+                    // Initialise the child
+                    *child = *parent;
+                    child->parent = parent;
+                    child->op = op;
 
-                // Add the child to its cache level
-                level->nodes[level->count++] = child;
+                    // Execute op
+                    size_t k = 0;
+                    while (k < NUM_INPUTS && execute(&child->states[k], op)) {
+                        k++;
+                    }
+                    // Reject the candidate if execution fails on any input
+                    if (k < NUM_INPUTS) {
+                        free(child);
+                        continue;
+                    }
 
-                if (matches_targets(child)) {
-                    print_source(child);
+                    // TODO: Hash and deduplicate the state
+
+                    // Grow the cache array if necessary
+                    if (level->count == level->capacity) {
+                        const size_t new_capacity = level->capacity ? level->capacity * 2 : 16;
+
+                        Node **new_nodes = static_cast<Node**>(realloc(
+                            level->nodes,
+                            new_capacity * sizeof(Node*)
+                        ));
+
+                        if (!new_nodes) {
+                            free(child);
+                            result = EXIT_FAILURE;
+                            goto cleanup;
+                        }
+
+                        level->nodes = new_nodes;
+                        level->capacity = new_capacity;
+                    }
+
+                    // Add the child to its cache level
+                    level->nodes[level->count++] = child;
+
+                    if (matches_targets(child)) {
+                        print_source(child);
+                    }
                 }
             }
         }
+        
+        printf("Length %d done (%zu expressions)\n", n, level->count);
     }
 
 
