@@ -122,7 +122,9 @@ bool equal(const int64_t a, const int64_t b, int64_t &result) {
 }
 
 
-bool div_all(int64_t a, const int64_t b, int64_t &result) {
+bool div_all(int64_t a, int64_t b, int64_t &result) {
+    b = std::abs(b);
+    
     if (b == 0 || b == 1) {
         result = a;
         return true;
