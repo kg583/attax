@@ -69,6 +69,10 @@ bool last_prime(int64_t a, int64_t &result);
 bool next_prime(int64_t a, int64_t &result);
 bool totient(int64_t a, int64_t &result);
 
+bool pow_mod(int64_t a, int64_t b, int64_t m, int64_t &result);
+bool nth_fib_mod(int64_t a, int64_t m, int64_t &result);
+bool factorial_mod(int64_t a, int64_t m, int64_t &result);
+
 
 bool alter_stack(State *state);
 bool both_copy(State *state);

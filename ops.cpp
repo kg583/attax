@@ -36,8 +36,7 @@ bool mod(const int64_t a, const int64_t b, int64_t &result) {
 }
 
 bool pow_floor(const int64_t a, const int64_t b, int64_t &result) {
-    result = std::pow(a, b);
-    return true;
+    return pow_mod(a, b, 0, result);
 }
 
 bool inc(const int64_t a, int64_t &result) {
@@ -154,29 +153,11 @@ bool parity_sign(const int64_t a, int64_t &result) {
 }
 
 bool two_power(const int64_t a, int64_t &result) {
-    int64_t pow;
-    pow_floor(2, a, pow);
-    result = pow;
-    return true;
+    return pow_floor(2, a, result);
 }
 
-bool nth_fib(int64_t a, int64_t &result) {
-    if (a == -1) {
-        result = 0;
-        return true;
-    }
-    if (a < -1) {
-        int64_t second_result;
-        nth_fib(-2 - a, second_result);
-        result = (a % 2 ? -1 : 1) * second_result;
-        return true;
-    }
-
-    int64_t m = 1;
-    int64_t n = 1;
-    for (; a > 0; a--) { m = n - m; n += m; }
-    result = n;
-    return true;
+bool nth_fib(const int64_t a, int64_t &result) {
+    return nth_fib_mod(a, 0, result);
 }
 
 bool nth_prime(int64_t a, int64_t &result) {
@@ -204,10 +185,7 @@ bool nth_prime(int64_t a, int64_t &result) {
 }
 
 bool ten_power(const int64_t a, int64_t &result) {
-    int64_t pow;
-    pow_floor(10, a, pow);
-    result = pow;
-    return true;
+    return pow_floor(10, a, result);
 }
 
 bool is_even(const int64_t a, int64_t &result) {
@@ -434,6 +412,78 @@ bool totient(int64_t a, int64_t &result) {
     }
 
     result = t;
+    return true;
+}
+
+
+bool pow_mod(int64_t a, int64_t b, const int64_t m, int64_t &result) {
+    if (a == 0) {
+        if (b < 0) return false;
+        if (b == 0) result = m != 1 && m != -1;
+        if (b > 0) result = 0;
+
+    } else {
+        if (b < 0) {
+            result = 0;
+        } else {
+            if (int64_t check; !int_nth_root(INT64_MAX, b, check) || (m == 0 && a > check)) return false;
+
+            result = 1;
+            while (b) {
+                if (b & 1) {
+                    result *= a;
+                    if (m != 0) result %= m;
+                }
+
+                b >>= 1;
+                a *= a;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool nth_fib_mod(int64_t a, const int64_t m, int64_t &result) {
+    if (a == -1) {
+        result = 0;
+        return true;
+    }
+
+    if (a < -1) {
+        if (!nth_fib(-2 - a, result)) return false;
+
+        result *= a % 2 ? -1 : 1;
+        if (m != 0) result %= m;
+        return true;
+    }
+
+    if (m == 0 && a > 25) return false;
+
+    int64_t n = 1;
+    result = 1;
+    for (; a > 0; a--) {
+        n = result - n;
+        result += n;
+
+        if (m != 0) {
+            n %= m;
+            result %= m;
+        }
+    }
+
+    return true;
+}
+
+bool factorial_mod(const int64_t a, const int64_t m, int64_t& result) {
+    if (a < 0 || (m == 0 && a > 20)) return false;
+
+    result = 1;
+    for (int64_t k = 2; k <= a; k++) {
+        result *= k;
+        if (m != 0) result %= m;
+    }
+
     return true;
 }
 
