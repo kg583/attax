@@ -162,9 +162,8 @@ bool nth_fib(const int64_t a, int64_t &result) {
 
 bool nth_prime(int64_t a, int64_t &result) {
     if (a < 0) {
-        int64_t second_result;
-        nth_prime(-1 - a, second_result);
-        result = -second_result;
+        if (!nth_prime(-1 - a, result)) return false;
+        result = -result;
         return true;
     }
 
@@ -173,14 +172,12 @@ bool nth_prime(int64_t a, int64_t &result) {
         return true;
     }
 
-    int64_t val = PRIME_10K;
-    for (; a > static_cast<int64_t>(N_PRIMES_10K); a--) {
-        int64_t second_result;
-        next_prime(val + 2, second_result);
-        val = second_result;
-    }
+    if (a > 300000) return false;
 
-    result = val;
+    result = PRIME_10K;
+    for (; a > static_cast<int64_t>(N_PRIMES_10K); a--) {
+        next_prime(result + 2, result);
+    }
     return true;
 }
 
