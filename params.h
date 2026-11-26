@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define MAX_STACK 16
-#define MAX_LENGTH 7
+#define MAX_LENGTH 3
 // Int literals from 0..MAX_LITERAL inclusive
 #define MAX_LITERAL 9
 
@@ -14,7 +14,7 @@ static constexpr int64_t inputs[] = {
 };
 
 static constexpr int64_t targets[] = {
-    2,65,730
+    0,1,2
 };
 
 inline bool match_output(int64_t actual, int64_t target) {
