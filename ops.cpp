@@ -127,7 +127,7 @@ bool div_all(int64_t a, int64_t b, int64_t &result) {
     if (a == 0 || b == 0 || b == 1) {
         result = a;
         return true;
-    };
+    }
 
     while (a % b == 0) {
         a /= b;
@@ -216,7 +216,7 @@ bool int_nth_root(const int64_t a, const int64_t b, int64_t &result) {
 }
 
 bool is_prime(int64_t a, int64_t &result) {
-    if (a < 0) a = -a;
+    a = std::abs(a);
 
     for (const int64_t p : PRIMES_10K) {
         if (a == p) {
@@ -292,7 +292,7 @@ bool multiplicity(int64_t a, const int64_t b, int64_t &result) {
     // Timeout in interpreter
     if (b == 1) {
         return false;
-    };
+    }
 
     result = 0;
     while (a % b == 0) {
@@ -345,9 +345,10 @@ bool high_bit(const int64_t a, int64_t &result) {
     return true;
 }
 
-bool next_multiple(const int64_t a, const int64_t b, int64_t &result) {
+bool next_multiple(const int64_t a, int64_t b, int64_t &result) {
     if (b == 0) return false;
 
+    b = std::abs(b);
     result = std::ceil(static_cast<long double>(a) / b) * b; 
     return true;
 }
@@ -387,8 +388,7 @@ bool last_prime(int64_t a, int64_t &result) {
 }
 
 bool totient(int64_t a, int64_t &result) {
-    if (a < 0) a = -a;
-
+    a = std::abs(a);
     int64_t t = 1;
     uint8_t i = 0;
 

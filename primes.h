@@ -106,7 +106,7 @@ static constexpr int64_t PRIMES_10K[] = {
     9901, 9907, 9923, 9929, 9931, 9941, 9949, 9967, 9973,
 };
 
-static constexpr size_t N_PRIMES_10K = sizeof PRIMES_10K / sizeof PRIMES_10K[0];
+static constexpr size_t N_PRIMES_10K = std::size(PRIMES_10K);
 static constexpr int64_t PRIME_10K = 10007;
 
 #endif

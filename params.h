@@ -41,8 +41,8 @@ static_assert(MAX_LENGTH >= 1, "MAX_LENGTH must be at least 1");
 static_assert(MAX_LITERAL <= INT64_MAX,
     "MAX_LITERAL > INT64_MAX, this is not allowed as the calculations use int64_t");
 
-#define NUM_INPUTS (sizeof inputs / sizeof inputs[0])
-static_assert(sizeof targets / sizeof targets[0] == NUM_INPUTS,
+#define NUM_INPUTS std::size(inputs)
+static_assert(std::size(targets) == NUM_INPUTS,
               "Input array length doesn't match target array length");
 
 #define NUM_OPS (sizeof OPS / sizeof OPS[0])

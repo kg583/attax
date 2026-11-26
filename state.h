@@ -94,9 +94,7 @@ typedef struct Node {
 
 static inline bool matches_targets(const Node *node) {
     for (size_t k = 0; k < NUM_INPUTS; k++) {
-        const State *state = &node->states[k];
-
-        if (state->depth == 0 ||
+        if (const State *state = &node->states[k]; state->depth == 0 ||
             !match_output(state->stack[state->depth - 1], targets[k])) {
             return false;
         }
