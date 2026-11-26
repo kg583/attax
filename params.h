@@ -10,11 +10,11 @@
 
 
 static constexpr int64_t inputs[] = {
-    1560
+    258
 };
 
 static constexpr int64_t targets[] = {
-    13121
+    256
 };
 
 inline bool match_output(int64_t actual, int64_t target) {
@@ -33,7 +33,7 @@ constexpr const char* OPS[] = {
     "x",
     "#",
     "|6",
-    "|F"
+    ":G"
 };
 
 

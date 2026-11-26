@@ -211,7 +211,7 @@ bool lcm(const int64_t a, const int64_t b, int64_t &result) {
 
 bool int_nth_root(const int64_t a, const int64_t b, int64_t &result) {
     if (b == 0) return false;
-    result = std::pow(a, 1 / static_cast<long double>(b));
+    result = std::pow(std::abs(a), 1 / static_cast<long double>(b));
     return true;
 }
 
@@ -308,18 +308,23 @@ bool sign(const int64_t a, int64_t &result) {
 }
 
 bool popcount(const int64_t a, int64_t &result) {
-    // Note: GCC extension
+    // GCC extension
     result = __builtin_popcount(a);
     return true;
 }
 
 bool floor_log_2(const int64_t a, int64_t &result) {
-    result = std::log2(a);
+    if (a == 0) return false;
+
+    // GCC extension
+    result = 63 - __builtin_clzll(std::abs(a));
     return true;
 }
 
 bool floor_log_10(const int64_t a, int64_t &result) {
-    result = std::log10(a);
+    if (a == 0) return false;
+
+    result = std::log10(std::abs(a));
     return true;
 }
 
@@ -333,15 +338,14 @@ bool clamp(const int64_t a, const int64_t b, const int64_t c, int64_t &result) {
     return true;
 }
 
-bool low_bit(const int64_t a, int64_t &result) {
+bool low_bit(int64_t a, int64_t &result) {
+    a = std::abs(a);
     result = a & -a;
     return true;
 }
 
 bool high_bit(const int64_t a, int64_t &result) {
-    int64_t log;
-    floor_log_2(a, log);
-    result = 1 << log;
+    result = floor_log_2(a, result) ? 1 << result : 0;
     return true;
 }
 
