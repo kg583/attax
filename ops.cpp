@@ -5,93 +5,98 @@
 #include "primes.h"
 
 
-int64_t add(const int64_t a, const int64_t b) {
+bool add(const int64_t a, const int64_t b, int64_t &result) {
     return a + b;
 }
 
-int64_t sub(const int64_t a, const int64_t b) {
+bool sub(const int64_t a, const int64_t b, int64_t &result) {
     return a - b;
 }
 
-int64_t mul(const int64_t a, const int64_t b) {
+bool mul(const int64_t a, const int64_t b, int64_t &result) {
     return a * b;
 }
 
-int64_t div_floor(const int64_t a, const int64_t b) {
+bool div_floor(const int64_t a, const int64_t b, int64_t &result) {
     return (a + (a < 0)) / b - (a < 0);
 }
 
-int64_t mod(const int64_t a, const int64_t b) {
+bool mod(const int64_t a, const int64_t b, int64_t &result) {
     return a % b;
 }
 
-int64_t pow_floor(const int64_t a, const int64_t b) {
+bool pow_floor(const int64_t a, const int64_t b, int64_t &result) {
     return std::pow(a, b);
 }
 
-int64_t inc(const int64_t a) {
+bool inc(const int64_t a, int64_t &result) {
     return a + 1;
 }
 
-int64_t dec(const int64_t a) {
+bool dec(const int64_t a, int64_t &result) {
     return a - 1;
 }
 
-int64_t halve(const int64_t a) {
+bool halve(const int64_t a, int64_t &result) {
     return a / 2;
 }
 
-int64_t unhalve(const int64_t a) {
+bool unhalve(const int64_t a, int64_t &result) {
     return a * 2;
 }
 
-int64_t bit_and(const int64_t a, const int64_t b) {
+bool bit_and(const int64_t a, const int64_t b, int64_t &result) {
     return a & b;
 }
 
-int64_t bit_or(const int64_t a, const int64_t b) {
+bool bit_or(const int64_t a, const int64_t b, int64_t &result) {
     return a | b;
 }
 
-int64_t bit_xor(const int64_t a, const int64_t b) {
+bool bit_xor(const int64_t a, const int64_t b, int64_t &result) {
     return a ^ b;
 }
 
-int64_t square(const int64_t a) {
+bool square(const int64_t a, int64_t &result) {
     return a * a;
 }
 
-int64_t negate(const int64_t a) {
+bool negate(const int64_t a, int64_t &result) {
     return -a;
 }
 
-int64_t min(const int64_t a, const int64_t b) {
+bool abs_value(const int64_t a, int64_t &result) {
+    result = std::abs(a);
+    return true;
+}
+
+bool min(const int64_t a, const int64_t b, int64_t &result) {
     return std::min(a, b);
 }
 
-int64_t max(const int64_t a, const int64_t b) {
+bool max(const int64_t a, const int64_t b, int64_t &result) {
     return std::max(a, b);
 }
 
 
-int64_t logical_not(const int64_t a) {
+bool logical_not(const int64_t a, int64_t &result) {
     return !a;
 }
 
-int64_t less(const int64_t a, const int64_t b) {
+bool less(const int64_t a, const int64_t b, int64_t &result) {
     return a < b;
 }
 
-int64_t greater(const int64_t a, const int64_t b) {
+bool greater(const int64_t a, const int64_t b, int64_t &result) {
     return a > b;
 }
 
-int64_t equal(const int64_t a, const int64_t b) {
+bool equal(const int64_t a, const int64_t b, int64_t &result) {
     return a == b;
 }
 
 
-int64_t div_all(int64_t a, const int64_t b) {
+bool div_all(int64_t a, const int64_t b, int64_t &result) {
     if (b == 1) return a;
 
     while (a % b == 0) {
@@ -101,23 +106,23 @@ int64_t div_all(int64_t a, const int64_t b) {
     return a;
 }
 
-int64_t shift_left(const int64_t a, const int64_t b) {
+bool shift_left(const int64_t a, const int64_t b, int64_t &result) {
     return b >= 0 ? a * (1 << b) : a / (1 << -b);
 }
 
-int64_t shift_right(const int64_t a, const int64_t b) {
+bool shift_right(const int64_t a, const int64_t b, int64_t &result) {
     return shift_left(a, -b);
 }
 
-int64_t parity_sign(const int64_t a) {
+bool parity_sign(const int64_t a, int64_t &result) {
     return a % 2 ? -1 : 1;
 }
 
-int64_t two_power(const int64_t a) {
+bool two_power(const int64_t a, int64_t &result) {
     return pow_floor(2, a);
 }
 
-int64_t nth_fib(int64_t a) {
+bool nth_fib(int64_t a, int64_t &result) {
     if (a == -1) return 0;
     if (a < -1) return (a % 2 ? -1 : 1) * nth_fib(-2 - a);
 
@@ -128,7 +133,7 @@ int64_t nth_fib(int64_t a) {
     return n;
 }
 
-int64_t nth_prime(int64_t a) {
+bool nth_prime(int64_t a, int64_t &result) {
     if (a < 0) return -nth_prime(-1 - a);
 
     if (a < static_cast<int64_t>(N_PRIMES_10K)) {
@@ -143,29 +148,29 @@ int64_t nth_prime(int64_t a) {
     return val;
 }
 
-int64_t ten_power(const int64_t a) {
+bool ten_power(const int64_t a, int64_t &result) {
     return pow_floor(10, a);
 }
 
-int64_t is_even(const int64_t a) {
+bool is_even(const int64_t a, int64_t &result) {
     return a % 2 ? 0 : 1;
 }
 
 // TODO: signaling for different errors in factorial
 
-int64_t gcd(const int64_t a, const int64_t b) {
+bool gcd(const int64_t a, const int64_t b, int64_t &result) {
     return std::gcd(a, b);
 }
 
-int64_t lcm(const int64_t a, const int64_t b) {
+bool lcm(const int64_t a, const int64_t b, int64_t &result) {
     return std::lcm(a, b);
 }
 
-int64_t int_nth_root(const int64_t a, const int64_t b) {
+bool int_nth_root(const int64_t a, const int64_t b, int64_t &result) {
     return std::pow(a, 1 / static_cast<long double>(b));
 }
 
-int64_t is_prime(int64_t a) {
+bool is_prime(int64_t a, int64_t &result) {
     if (a < 0) a = -a;
 
     for (const int64_t p : PRIMES_10K) {
@@ -190,42 +195,42 @@ int64_t is_prime(int64_t a) {
     return true;
 }
 
-int64_t int_sqrt(const int64_t a) {
+bool int_sqrt(const int64_t a, int64_t &result) {
     return std::sqrt(a);
 }
 
-int64_t set_interior(int64_t a) {
+bool set_interior(int64_t a, int64_t &result) {
     for (int64_t b = 1; b < a; b *= 2) {
         a |= b;
     }
     return a;
 }
 
-int64_t coprime(const int64_t a, const int64_t b) {
+bool coprime(const int64_t a, const int64_t b, int64_t &result) {
     return gcd(a, b) == 1;
 }
 
-int64_t abs_diff(const int64_t a, const int64_t b) {
+bool abs_diff(const int64_t a, const int64_t b, int64_t &result) {
     return std::abs(a - b);
 }
 
-int64_t get_bit(const int64_t a, const int64_t b) {
+bool get_bit(const int64_t a, const int64_t b, int64_t &result) {
     return (a >> b) & 1;
 }
 
-int64_t unset_bit(const int64_t a, const int64_t b) {
+bool unset_bit(const int64_t a, const int64_t b, int64_t &result) {
     return a & ~(1 << b);
 }
 
-int64_t set_bit(const int64_t a, const int64_t b) {
+bool set_bit(const int64_t a, const int64_t b, int64_t &result) {
     return a | (1 << b);
 }
 
-int64_t toggle_bit(const int64_t a, const int64_t b) {
+bool toggle_bit(const int64_t a, const int64_t b, int64_t &result) {
     return a ^ (1 << b);
 }
 
-int64_t multiplicity(int64_t a, const int64_t b) {
+bool multiplicity(int64_t a, const int64_t b, int64_t &result) {
     // TODO: actually signal this
     if (b == 1) return -1;
 
@@ -238,60 +243,60 @@ int64_t multiplicity(int64_t a, const int64_t b) {
     return k;
 }
 
-int64_t sign(const int64_t a) {
+bool sign(const int64_t a, int64_t &result) {
     if (a == 0) return 0;
     return a > 0 ? 1 : -1;
 }
 
-int64_t popcount(const int64_t a) {
+bool popcount(const int64_t a, int64_t &result) {
     // Note: GCC extension
     return __builtin_popcount(a);
 }
 
-int64_t floor_log_2(const int64_t a) {
+bool floor_log_2(const int64_t a, int64_t &result) {
     return std::log2(a);
 }
 
-int64_t floor_log_10(const int64_t a) {
+bool floor_log_10(const int64_t a, int64_t &result) {
     return std::log10(a);
 }
 
-int64_t between(const int64_t a, const int64_t b, const int64_t c) {
+bool between(const int64_t a, const int64_t b, const int64_t c, int64_t &result) {
     return b <= a && a < c;
 }
 
-int64_t clamp(const int64_t a, const int64_t b, const int64_t c) {
+bool clamp(const int64_t a, const int64_t b, const int64_t c, int64_t &result) {
     return std::min(std::max(a, b), c);
 }
 
-int64_t low_bit(const int64_t a) {
+bool low_bit(const int64_t a, int64_t &result) {
     return a & -a;
 }
 
-int64_t high_bit(const int64_t a) {
+bool high_bit(const int64_t a, int64_t &result) {
     return 1 << floor_log_2(a);
 }
 
-int64_t next_multiple(const int64_t a, const int64_t b) {
+bool next_multiple(const int64_t a, const int64_t b, int64_t &result) {
     return std::ceil(static_cast<long double>(a) / b) * b;
 }
 
-int64_t is_power(const int64_t a, const int64_t b) {
+bool is_power(const int64_t a, const int64_t b, int64_t &result) {
     return a == static_cast<int64_t>(std::pow(int_nth_root(a, b), b));
 }
 
-int64_t next_prime(int64_t a) {
+bool next_prime(int64_t a, int64_t &result) {
     while (!is_prime(a)) a++;
     return a;
 }
 
-int64_t last_prime(int64_t a) {
+bool last_prime(int64_t a, int64_t &result) {
     a--;
     while (!is_prime(a)) a--;
     return a;
 }
 
-int64_t totient(int64_t a) {
+bool totient(int64_t a, int64_t &result) {
     if (a < 0) a = -a;
 
     int64_t t = 1;
@@ -392,25 +397,34 @@ bool tuck(State *state, const int64_t val) {
     return true;
 }
 
-bool unary(State *state, int64_t (*op)(int64_t)) {
+bool unary(State *state, UnaryOp op) {
     if (DEPTH < 1) return false;
 
-    STACK[DEPTH - 1] = op(STACK[DEPTH - 1]);
+    int64_t result;
+    if (!op(STACK[DEPTH - 1], &result)) return false;
+
+    STACK[DEPTH - 1] = result;
     return true;
 }
 
-bool binary(State *state, int64_t (*op)(int64_t, int64_t)) {
+bool binary(State *state, BinaryOp op) {
     if (DEPTH < 2) return false;
 
-    STACK[DEPTH - 2] = op(STACK[DEPTH - 1], STACK[DEPTH - 2]);
+    int64_t result;
+    if (!op(STACK[DEPTH - 1], STACK[DEPTH - 2], &result)) return false;
+
+    STACK[DEPTH - 2] = result;
     DEPTH -= 1;
     return true;
 }
 
-bool ternary(State *state, int64_t (*op)(int64_t, int64_t, int64_t)) {
+bool ternary(State *state, TernaryOp op) {
     if (DEPTH < 3) return false;
 
-    STACK[DEPTH - 3] = op(STACK[DEPTH - 1], STACK[DEPTH - 2], STACK[DEPTH - 3]);
+    int64_t result;
+    if (!op(STACK[DEPTH - 1], STACK[DEPTH - 2], STACK[DEPTH - 3], &result)) return false;
+
+    STACK[DEPTH - 3] = result;
     DEPTH -= 2;
     return true;
 }
