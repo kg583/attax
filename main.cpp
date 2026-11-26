@@ -17,12 +17,16 @@ static bool execute(State *state, const Op op) {
 
     switch (op.opcode) {
 
+    case 0x21: return unary(state, logical_not);
     case 0x23: return binary(state, pow_floor);
     case 0x25: return binary(state, mod);
     case 0x2A: return binary(state, mul);
     case 0x2B: return binary(state, add);
     case 0x2D: return binary(state, sub);
     case 0x2F: return binary(state, div_floor);
+    case 0x3C: return binary(state, less);
+    case 0x3D: return binary(state, equal);
+    case 0x3E: return binary(state, greater);
     case 0x4A: return unary(state, square);
     case 0x48: return unary(state, unhalve);
     case 0x49: return binary(state, bit_and);
@@ -32,27 +36,20 @@ static bool execute(State *state, const Op op) {
     case 0x53: return binary(state, bit_xor);
     case 0x54: return binary(state, max);
     case 0x55: return push(state, -1);
+    case 0x58: return X(state);
+    case 0x59: return Y(state);
     case 0x5A: return tuck(state, 0);
-    case 0x5E: return unary(state, inc);
-    case 0x68: return unary(state, halve);
-    case 0x74: return binary(state, min);
-    case 0x76: return unary(state, dec);
-
-    case 0x21: return unary(state, logical_not);
-    case 0x3C: return binary(state, less);
-    case 0x3D: return binary(state, equal);
-    case 0x3E: return binary(state, greater);
-
     case 0x5B: return under(state);
+    case 0x5E: return unary(state, inc);
     case 0x61: return alter_stack(state);
     case 0x62: return both_copy(state);
     case 0x63: return copy(state);
     case 0x64: return discard(state);
     case 0x6E: return next(state);
+    case 0x68: return unary(state, halve);
     case 0x73: return swap(state);
-
-    case 0x58: return X(state);
-    case 0x59: return Y(state);
+    case 0x74: return binary(state, min);
+    case 0x76: return unary(state, dec);
     case 0x78: return x(state);
     case 0x79: return y(state);
 
@@ -65,6 +62,7 @@ static bool execute(State *state, const Op op) {
     case 0x3A3A: return binary(state, toggle_bit);
     case 0x3A40: return binary(state, get_bit);
     case 0x3A41: return unary(state, floor_log_10);
+    // case 0x3A43: return unary(state, catalan);
     case 0x3A47: return unary(state, high_bit);
     case 0x3A4A: return square_two(state);
     case 0x3A4E: return binary(state, is_power);
@@ -89,7 +87,7 @@ static bool execute(State *state, const Op op) {
     case 0x7C3E: return binary(state, shift_right);
     case 0x7C41: return unary(state, ten_power);
     // case 0x7C43: return binary(state, choose);
-    // case 0x7C46: return unary(state, factorial);
+    case 0x7C46: return unary(state, factorial);
     case 0x7C6E: return binary(state, int_nth_root);
     case 0x7C61: return unary(state, abs_value);
     case 0x7C65: return unary(state, is_even);

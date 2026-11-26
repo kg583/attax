@@ -38,7 +38,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `c`   | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
 | `d`   | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
 | `n`   | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
-| `[`   | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | TODO       |
+| `[`   | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | Done       |
 | `s`   | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | Done       |
 |       |                  |            |   | `\|l`  | `lcm(a,b)`              | Done       |
 | `+`   | `a + b`          | Done       |   | `\|N`  | `int(a ** (1/b))`       | Done       |

@@ -215,7 +215,14 @@ bool is_even(const int64_t a, int64_t &result) {
     return true;
 }
 
-// TODO: signaling for different errors in factorial
+bool factorial(const int64_t a, int64_t& result) {
+    if (a < 0 || a > 20) return false;
+
+    result = 1;
+    for (int64_t k = 2; k <= a; k++) result *= k;
+
+    return true;
+}
 
 bool gcd(const int64_t a, const int64_t b, int64_t &result) {
     result = std::gcd(a, b);
@@ -268,11 +275,11 @@ bool int_sqrt(const int64_t a, int64_t &result) {
     return true;
 }
 
-bool set_interior(int64_t a, int64_t &result) {
-    for (int64_t b = 1; b < a; b *= 2) {
-        a |= b;
-    }
+bool set_interior(const int64_t a, int64_t &result) {
     result = a;
+    for (int64_t b = 1; b < a; b *= 2) {
+        result |= b;
+    }
     return true;
 }
 
@@ -312,13 +319,11 @@ bool multiplicity(int64_t a, const int64_t b, int64_t &result) {
         return false;
     };
 
-    uint8_t k = 0;
+    result = 0;
     while (a % b == 0) {
       a /= b;
-      k += 1;
+      result += 1;
     }
-    
-    result = k;
     return true;
 }
 
