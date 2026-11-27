@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <algorithm>
 #include <unordered_set>
 #include <vector>
 
@@ -102,11 +103,12 @@ static bool execute(State *state, const Op op) {
     }
 }
 
-static void print_source(const Node *node) {
+static void print_source(const Node *parent, const Op last_op) {
     Op instructions[MAX_LENGTH];
-    size_t count = 0;
+    size_t count = 1;
+    instructions[0] = last_op;
 
-    for (; node->parent; node = node->parent) {
+    for (const Node *node = parent; node->parent; node = node->parent) {
         instructions[count++] = node->op;
     }
 
@@ -124,6 +126,37 @@ static void print_source(const Node *node) {
     }
 
     putchar('\n');
+}
+
+// Doesn't cache
+// Executes one input at a time and compares each output to the target
+static void search_final_level(const CacheLevel *cache, std::vector<Op> *opcodes) {
+    State current_state;
+
+    for (int op_length = 1; op_length <= MAX_LENGTH; op_length++) {
+        std::vector<Op> &ops = opcodes[op_length];
+        // Assumes that the output isn't a constant like [1, 1, 1, 1] etc.
+        ops.erase(std::remove_if(ops.begin(), ops.end(), [](const Op op) {
+            return op.is_number;
+        }), ops.end());
+
+        const CacheLevel &parents = cache[MAX_LENGTH - op_length];
+        for (size_t i = 0; i < parents.count; i++) {
+            const Node *parent = parents.nodes[i];
+            for (const Op op : ops) {
+                size_t k = 0;
+                for (; k < NUM_INPUTS; k++) {
+                    current_state = parent->states[k];
+                    if (!execute(&current_state, op) || !matches_target(current_state, targets[k])) {
+                        break;
+                    }
+                }
+                if (k == NUM_INPUTS) {
+                    print_source(parent, op);
+                }
+            }
+        }
+    }
 }
 
 
@@ -185,7 +218,7 @@ int main() {
 
     Node *child = NULL;
 
-    for (int n = 1; n <= MAX_LENGTH; n++) {
+    for (int n = 1; n < MAX_LENGTH; n++) {
         for (int op_length = 1; op_length <= n; op_length++) {
             const std::vector<Op> &ops = OPCODES[op_length];
             if (ops.empty()) continue;
@@ -220,12 +253,7 @@ int main() {
                     }
 
                     if (matches_targets(child)) {
-                        print_source(child);
-                    }
-                    
-                    // Don't cache if on the max length
-                    if (n == MAX_LENGTH) {
-                        continue;
+                        print_source(parent, op);
                     }
 
                     // Already seen
@@ -260,13 +288,11 @@ int main() {
             }
         }
 
-        if (n == MAX_LENGTH) {
-            printf("Length %d done\n", n);
-        } else {
-            printf("Length %d done (%zu expressions)\n", n, cache[n].count);
-        }
+        printf("Length %d done (%zu expressions)\n", n, cache[n].count);
     }
 
+    search_final_level(cache, OPCODES);
+    printf("Length %d done\n", MAX_LENGTH);
 
 cleanup:
     free(child);

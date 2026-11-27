@@ -92,10 +92,13 @@ typedef struct Node {
     Op op;
 } Node;
 
+static inline bool matches_target(const State &state, int64_t target) {
+    return state.depth > 0 && match_output(state.stack[state.depth - 1], target);
+}
+
 static inline bool matches_targets(const Node *node) {
     for (size_t k = 0; k < NUM_INPUTS; k++) {
-        if (const State *state = &node->states[k]; state->depth == 0 ||
-            !match_output(state->stack[state->depth - 1], targets[k])) {
+        if (!matches_target(node->states[k], targets[k])) {
             return false;
         }
     }
