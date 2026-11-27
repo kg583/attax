@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -182,6 +183,8 @@ int main() {
 
     seen.insert(root->states);
 
+    Node *child = NULL;
+
     for (int n = 1; n <= MAX_LENGTH; n++) {
         for (int op_length = 1; op_length <= n; op_length++) {
             const std::vector<Op> &ops = OPCODES[op_length];
@@ -192,12 +195,13 @@ int main() {
                 Node *parent = parents->nodes[i];
 
                 for (const Op op : ops) {
-                    // Allocate the new node
-                    Node *child = static_cast<Node*>(malloc(sizeof(Node)));
-
+                    // Allocate the new node if needed
                     if (!child) {
-                        result = EXIT_FAILURE;
-                        goto cleanup;
+                        child = static_cast<Node *>(malloc(sizeof(Node)));
+                        if (!child) {
+                            result = EXIT_FAILURE;
+                            goto cleanup;
+                        }
                     }
 
                     // Initialise the child
@@ -212,16 +216,20 @@ int main() {
                     }
                     // Reject the candidate if execution fails on any input
                     if (k < NUM_INPUTS) {
-                        free(child);
                         continue;
                     }
 
                     if (matches_targets(child)) {
                         print_source(child);
                     }
-
+                    
+                    // Don't cache if on the max length
                     if (n == MAX_LENGTH) {
-                        free(child);
+                        continue;
+                    }
+
+                    // Already seen
+                    if (!seen.insert(child->states).second) {
                         continue;
                     }
 
@@ -237,7 +245,6 @@ int main() {
                         ));
 
                         if (!new_nodes) {
-                            free(child);
                             result = EXIT_FAILURE;
                             goto cleanup;
                         }
@@ -246,14 +253,9 @@ int main() {
                         level->capacity = new_capacity;
                     }
 
-                    // Already seen
-                    if (!seen.insert(child->states).second) {
-                        free(child);
-                        continue;
-                    }
-
                     // Add the child to its cache level
                     level->nodes[level->count++] = child;
+                    child = NULL;
                 }
             }
         }
@@ -267,6 +269,7 @@ int main() {
 
 
 cleanup:
+    free(child);
     // Free every node and cache array
     for (const CacheLevel &level : cache) {
         for (size_t i = 0; i < level.count; i++)
