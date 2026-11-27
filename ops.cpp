@@ -185,6 +185,11 @@ bool ten_power(const int64_t a, int64_t &result) {
     return pow_floor(10, a, result);
 }
 
+bool choose(const int64_t a, const int64_t b, int64_t &result) {
+    return choose_mod(a, b, 0, result);
+}
+
+
 bool is_even(const int64_t a, int64_t &result) {
     result = a % 2 ? 0 : 1;
     return true;
@@ -338,6 +343,10 @@ bool clamp(const int64_t a, const int64_t b, const int64_t c, int64_t &result) {
     return true;
 }
 
+bool catalan(const int64_t a, int64_t &result) {
+    return catalan_mod(a, 0, result);
+}
+
 bool low_bit(int64_t a, int64_t &result) {
     a = std::abs(a);
     result = a & -a;
@@ -476,6 +485,20 @@ bool nth_fib_mod(int64_t a, const int64_t m, int64_t &result) {
     return true;
 }
 
+bool choose_mod(const int64_t a, const int64_t b, const int64_t m, int64_t &result) {
+    if (a < 0 || b < 0 || b > a) {
+        result = 0;
+    } else {
+        result = 1;
+        for (int64_t j = 1; j <= a - b; j++) {
+            result = result * (b + j) / j;
+            if (m != 0) result %= m;
+        }
+    }
+
+    return true;
+}
+
 bool factorial_mod(const int64_t a, const int64_t m, int64_t& result) {
     if (a < 0 || (m == 0 && a > 20)) return false;
 
@@ -483,6 +506,20 @@ bool factorial_mod(const int64_t a, const int64_t m, int64_t& result) {
     for (int64_t k = 2; k <= a; k++) {
         result *= k;
         if (m != 0) result %= m;
+    }
+
+    return true;
+}
+
+bool catalan_mod(const int64_t a, const int64_t m, int64_t& result) {
+    if (a < 0) {
+        result = 0;
+    } else {
+        result = 1;
+        for (int64_t k = 2; k <= a + 1; k++) {
+            result = 4 * result - 6 * result / k;
+            if (m != 0) result %= m;
+        }
     }
 
     return true;

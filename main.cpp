@@ -62,7 +62,7 @@ static bool execute(State *state, const Op op) {
     case 0x3A3A: return binary(state, toggle_bit);
     case 0x3A40: return binary(state, get_bit);
     case 0x3A41: return unary(state, floor_log_10);
-    // case 0x3A43: return unary(state, catalan);
+    case 0x3A43: return unary(state, catalan);
     case 0x3A47: return unary(state, high_bit);
     case 0x3A4A: return square_two(state);
     case 0x3A4E: return binary(state, is_power);
@@ -86,7 +86,7 @@ static bool execute(State *state, const Op op) {
     case 0x7C3C: return binary(state, shift_left);
     case 0x7C3E: return binary(state, shift_right);
     case 0x7C41: return unary(state, ten_power);
-    // case 0x7C43: return binary(state, choose);
+    case 0x7C43: return binary(state, choose);
     case 0x7C46: return unary(state, factorial);
     case 0x7C6E: return binary(state, int_nth_root);
     case 0x7C61: return unary(state, abs_value);

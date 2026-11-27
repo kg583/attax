@@ -71,7 +71,9 @@ bool totient(int64_t a, int64_t &result);
 
 bool pow_mod(int64_t a, int64_t b, int64_t m, int64_t &result);
 bool nth_fib_mod(int64_t a, int64_t m, int64_t &result);
+bool choose_mod(int64_t a, int64_t b, int64_t m, int64_t &result);
 bool factorial_mod(int64_t a, int64_t m, int64_t &result);
+bool catalan_mod(int64_t a, int64_t m, int64_t &result);
 
 
 bool alter_stack(State *state);
