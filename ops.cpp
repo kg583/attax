@@ -36,6 +36,7 @@ bool mod(const int64_t a, const int64_t b, int64_t &result) {
 }
 
 bool pow_floor(const int64_t a, const int64_t b, int64_t &result) {
+    if (int64_t check; int_nth_root(INT64_MAX, b, check) && a > check) return false;
     return pow_mod(a, b, 0, result);
 }
 
@@ -157,6 +158,7 @@ bool two_power(const int64_t a, int64_t &result) {
 }
 
 bool nth_fib(const int64_t a, int64_t &result) {
+    if (a > 25 || a < -27) return false;
     return nth_fib_mod(a, 0, result);
 }
 
@@ -189,19 +191,14 @@ bool choose(const int64_t a, const int64_t b, int64_t &result) {
     return choose_mod(a, b, 0, result);
 }
 
-
 bool is_even(const int64_t a, int64_t &result) {
     result = a % 2 ? 0 : 1;
     return true;
 }
 
 bool factorial(const int64_t a, int64_t& result) {
-    if (a < 0 || a > 20) return false;
-
-    result = 1;
-    for (int64_t k = 2; k <= a; k++) result *= k;
-
-    return true;
+    if (a > 20) return false;
+    return factorial_mod(a, 0, result);
 }
 
 bool gcd(const int64_t a, const int64_t b, int64_t &result) {
@@ -344,6 +341,7 @@ bool clamp(const int64_t a, const int64_t b, const int64_t c, int64_t &result) {
 }
 
 bool catalan(const int64_t a, int64_t &result) {
+    if (a > 25) return false;
     return catalan_mod(a, 0, result);
 }
 
@@ -436,8 +434,6 @@ bool pow_mod(int64_t a, int64_t b, const int64_t m, int64_t &result) {
         if (b < 0) {
             result = 0;
         } else {
-            if (int64_t check; !int_nth_root(INT64_MAX, b, check) || (m == 0 && a > check)) return false;
-
             result = 1;
             while (b) {
                 if (b & 1) {
@@ -461,14 +457,11 @@ bool nth_fib_mod(int64_t a, const int64_t m, int64_t &result) {
     }
 
     if (a < -1) {
-        if (!nth_fib(-2 - a, result)) return false;
-
+        nth_fib_mod(-2 - a, m, result);
         result *= a % 2 ? -1 : 1;
         if (m != 0) result %= m;
         return true;
     }
-
-    if (m == 0 && a > 25) return false;
 
     int64_t n = 1;
     result = 1;
@@ -500,7 +493,7 @@ bool choose_mod(const int64_t a, const int64_t b, const int64_t m, int64_t &resu
 }
 
 bool factorial_mod(const int64_t a, const int64_t m, int64_t& result) {
-    if (a < 0 || (m == 0 && a > 20)) return false;
+    if (a < 0) return false;
 
     result = 1;
     for (int64_t k = 2; k <= a; k++) {
