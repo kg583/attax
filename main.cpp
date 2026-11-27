@@ -184,7 +184,6 @@ int main() {
     }
 
     CacheLevel cache[MAX_LENGTH] = {};
-    std::unordered_set<const State*, StatesHash, StatesEqual> seen;
 
     // Initialise root
     Node *root = static_cast<Node*>(calloc(1, sizeof(Node)));
@@ -211,10 +210,17 @@ int main() {
     cache[0].count = 1;
     cache[0].capacity = 1;
 
-    int result = EXIT_SUCCESS;
+    // Initialise hashset
+    std::unordered_set<const State*, StatesHash, StatesEqual> seen;
+    // TODO: make this estimate better (this is an upper bound)
+    const double b = (NUM_OPS + MAX_LITERAL + 1);
+    // 1 + b + b**2 + b**3 ...
+    const size_t estimate = ceil((pow(b, MAX_LENGTH) - 1.0) / (b - 1.0));
 
+    seen.reserve(estimate);
     seen.insert(root->states);
 
+    int result = EXIT_SUCCESS;
     Node *child = NULL;
 
     for (int n = 1; n < MAX_LENGTH; n++) {

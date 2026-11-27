@@ -6,9 +6,9 @@
 #define MAX_LENGTH 7
 
 // Set to 0 for automatic worst-case
-#define MAX_STACK 0
+#define MAX_STACK 100
 // Worst case is "cbbb..."
-#if MAX_STACK == 0
+#if MAX_STACK == 0 || MAX_STACK > 2 * MAX_LENGTH
     #undef MAX_STACK
     #define MAX_STACK (2 * MAX_LENGTH)
 #endif
