@@ -36,7 +36,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `a`   | `a b c -> c a b` | Done       |   | `\|5`  | `a`th Fibonacci number  | Done       |
 | `b`   | `a b -> a b a b` | Done       |   | `\|6`  | `a`th prime             | Done       |
 | `c`   | `a b -> a a b`   | Done       |   | `\|a`  | `abs(a)`                | Done       |
-| `d`   | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | TODO       |
+| `d`   | `a b -> b`       | Done       |   | `\|C`  | `a nCr b`               | Done       |
 | `n`   | `a b -> b a b`   | Done       |   | `\|e`  | `(a + 1) % 2`           | Done       |
 | `[`   | `a b -> a b b`   | Done       |   | `\|F`  | `a!`                    | Done       |
 | `s`   | `a b -> b a`     | Done       |   | `\|g`  | `gcd(a,b)`              | Done       |
@@ -58,7 +58,7 @@ Akin to pysearch, we generate all possible expressions of a given length, with r
 | `N`   | `-a`             | Done       |   | `:A`   | `int(log(a,10))`        | Done       |
 | `t`   | `min(a, b)`      | Done       |   | `:b`   | Is `b <= a < c`?        | Done       |
 | `T`   | `max(a, b)`      | Done       |   | `:c`   | `min(max(a, b), c)`     | Done       |
-|       |                  |            |   | `:C`   | `a`th Catalan number    | TODO       |
+|       |                  |            |   | `:C`   | `a`th Catalan number    | Done       |
 | `!`   | `!a`             | Done       |   | `:g`   | `a & -a`                | Done       |
 | `<`   | `a < b`          | Done       |   | `:G`   | `2**int(log(a,2))`      | Done       |
 | `>`   | `a > b`          | Done       |   | `:J`   | `a b -> a**2 b**2`      | Done       |
