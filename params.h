@@ -3,18 +3,26 @@
 
 #include <stdint.h>
 
-#define MAX_STACK 16
-#define MAX_LENGTH 3
+#define MAX_LENGTH 7
+
+// Set to 0 for automatic worst-case
+#define MAX_STACK 0
+// Worst case is "cbbb..."
+#if MAX_STACK == 0
+    #undef MAX_STACK
+    #define MAX_STACK (2 * MAX_LENGTH)
+#endif
+
 // Int literals from 0..MAX_LITERAL inclusive
 #define MAX_LITERAL 9
 
 
 static constexpr int64_t inputs[] = {
-    6
+    1,2,3
 };
 
 static constexpr int64_t targets[] = {
-    132
+    2,65,730
 };
 
 inline bool match_output(int64_t actual, int64_t target) {
@@ -25,15 +33,15 @@ constexpr const char* OPS[] = {
     "+",
     "-",
     "*",
-    // "/",
+    "/",
     "^",
     "v",
     "c",
     "X",
     "x",
-    "#",
-    ":C",
-    ":G"
+    // "#",
+    // ":C",
+    // ":G"
 };
 
 

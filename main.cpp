@@ -13,8 +13,7 @@
 
 static bool execute(State *state, const Op op) {
     if (op.is_number) {
-        push(state, static_cast<int64_t>(op.opcode));
-        return true;
+        return push(state, static_cast<int64_t>(op.opcode));
     }
 
     switch (op.opcode) {

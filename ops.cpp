@@ -540,7 +540,7 @@ bool alter_stack(State *state) {
 }
 
 bool both_copy(State *state) {
-    if (DEPTH < 2) return false;
+    if (DEPTH < 2 || DEPTH + 2 > MAX_STACK) return false;
 
     STACK[DEPTH] = STACK[DEPTH - 2];
     STACK[DEPTH + 1] = STACK[DEPTH - 1];
@@ -549,7 +549,7 @@ bool both_copy(State *state) {
 }
 
 bool copy(State *state) {
-    if (DEPTH < 1) return false;
+    if (DEPTH < 1 || DEPTH + 1 > MAX_STACK) return false;
 
     STACK[DEPTH] = STACK[DEPTH - 1];
     DEPTH += 1;
@@ -564,7 +564,7 @@ bool discard(State *state) {
 }
 
 bool next(State *state) {
-    if (DEPTH < 2) return false;
+    if (DEPTH < 2 || DEPTH + 1 > MAX_STACK) return false;
 
     STACK[DEPTH] = STACK[DEPTH - 2];
     DEPTH += 1;
@@ -572,7 +572,7 @@ bool next(State *state) {
 }
 
 bool under(State *state) {
-    if (DEPTH < 2) return false;
+    if (DEPTH < 2 || DEPTH + 1 > MAX_STACK) return false;
 
     STACK[DEPTH] = STACK[DEPTH - 1];
     STACK[DEPTH - 1] = STACK[DEPTH - 2];
@@ -590,13 +590,15 @@ bool swap(State *state) {
 }
 
 bool push(State *state, const int64_t val) {
+    if (DEPTH + 1 > MAX_STACK) return false;
+
     STACK[DEPTH] = val;
     DEPTH += 1;
     return true;
 }
 
 bool tuck(State *state, const int64_t val) {
-    if (DEPTH < 1) return false;
+    if (DEPTH < 1 || DEPTH + 1 > MAX_STACK) return false;
 
     STACK[DEPTH] = STACK[DEPTH - 1];
     STACK[DEPTH - 1] = val;
@@ -655,15 +657,13 @@ bool Y(State* state) {
 bool x(State* state) {
     if (!state->x_init) return false;
 
-    push(state, state->x);
-    return true;
+    return push(state, state->x);
 }
 
 bool y(State* state) {
     if (!state->y_init) return false;
 
-    push(state, state->y);
-    return true;
+    return push(state, state->y);
 }
 
 
